@@ -1,15 +1,12 @@
 'use strict';
 
-var express = require('express');
-var http = require('http');
-var path = require('path');
 var config = require('./config');
 require('../server.js');
 
 
 
 
-var dbHelper = function(){
+var dbHelper = function(app){
 
   var Sequelize = require('sequelize');
 

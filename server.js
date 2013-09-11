@@ -3,14 +3,16 @@
 /**
  * Module dependencies.
  */
-require('./config/db.js');
+
+
 
 var express = require('express');
 var http = require('http');
 var path = require('path');
 //var config = require('./config/config');
-var app = express();
 
+var app = express();
+require('./config/db.js')(app);
 // all environments
 app.set('port', process.env.PORT || 3000);
 
