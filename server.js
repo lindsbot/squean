@@ -9,11 +9,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 //var config = require('./config/config');
-
 var app = express();
-
-
-
 
 // all environments
 app.set('port', process.env.PORT || 3000);

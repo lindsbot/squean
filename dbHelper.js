@@ -4,6 +4,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var config = require('./config/config');
+require('./server.js');
 
 
 
@@ -34,12 +35,12 @@ var dbHelper = function(){
     res.send(200);
   });
 
-  // app.get('/test', function(req, res){
-  //   .findAll().success(function(data){
-  //     res.send(data);
-  //     res.end();
-  //   });
-  // });
+  app.get('/test', function(req, res){
+    db.findAll().success(function(data){
+      res.send(data);
+      res.end();
+    });
+  });
 
 };
 
