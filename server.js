@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-require('./dbHelper.js');
+require('./config/db.js');
 
 var express = require('express');
 var http = require('http');
