@@ -18,6 +18,7 @@
 </head>
 
 <body ng-app="phantomRunnerApp">
+  <ng:include src="'./views/navbar.html'"></ng:include>
 
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -28,23 +29,7 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-<div id="wrap">
-
-
-
-
-  <div class="index-hero">
-    <!-- <img alt="PhantomRunner" src="/assets/PhantomRunnerHomepageAdj-8d38c4cad847d4719f12f10b834b3980.png" /> -->
-    
-    <article class="home">
-      <div>
-          <p><a href="/users/social_sign_up" class="btn btn-primary home-signup-btn">Sign Up For Free!</a></p>
-      </div>
-    </article>
-  </div>
-</div> <!-- end div id="wrap" -->
-
-
+    <ng:include src="'./views/main.html'"></ng:include>
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

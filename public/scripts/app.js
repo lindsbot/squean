@@ -7,7 +7,7 @@ angular.module('phantomRunnerApp', [])
         templateUrl: 'index.html',
         controller: 'MainCtrl'
       })
-      .when('/test', {
+      .when('/races', {
         templateUrl: 'views/test.html',
         controller: 'TestCtrl'
       })

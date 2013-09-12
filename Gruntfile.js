@@ -12,7 +12,8 @@ module.exports = function (grunt) {
 
     try {
         yeomanConfig.app = require('./component.json').appPath || yeomanConfig.app;
-      } catch (e) {
+    }
+    catch (e) {
     }
 
     grunt.initConfig({
@@ -283,7 +284,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'jshint',
-        'test',
+        //'test',
         'coffee',
         'compass:dist',
         'useminPrepare',
@@ -292,7 +293,7 @@ module.exports = function (grunt) {
         'htmlmin',
         'concat',
         'copy',
-        'cdnify',
+        //'cdnify',
         'ngmin',
         'uglify',
         'rev',
