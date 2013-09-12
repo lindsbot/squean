@@ -5,22 +5,13 @@ module.exports = function(app){
 
   app.get('/', function(req, res){
     res.status(200);
-    res.sendfile('app/index.html');
-    res.end();
+    res.sendfile('./public/index.html');
   });
 
-  app.post('SomethingFromAngular', function(req,res){
+  app.get('/stuff', function(req,res){
     //may need to query req for specific model details
-    var data = 'getsome stuff from database';
-
+    var data = 'this will come from the server';
     res.status(200);
     res.end(data);
-  });
-
-  app.get('', function(req, res){
-    site.doTheThing(req.params.id, function(data) {
-      res.send(data);
-      res.end();
-    });
   });
 };
