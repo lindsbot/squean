@@ -8,10 +8,17 @@ module.exports = function(app) {
   require('./environments.js')(app);
   require('./db.js')(app);
   require('./middleware.js')(app);
+  require('./routes.js');
 
-  app.get('/', function(req, res){
+
+
+
+  app.post('SomethingFromAngular', function(req,res){
+    //may need to query req for specific model details
+    var data = 'getsome stuff from database';
+
     res.status(200);
-    res.sendfile('app/index.html');
-
+    res.end(data);
   });
+
 };
