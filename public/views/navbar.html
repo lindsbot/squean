@@ -1,0 +1,42 @@
+<div class="navbar navbar-fixed-top center">
+  <div class="navbar-inner">
+    <div class="container">
+      <div id="account-links">
+        <a class="btn-dropdown-toggle">
+          {{username}}
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="/account" id="my-account">My Account</a>
+          </li>
+          <li>
+            <a href="/races/my-races" id="my-races">My Races</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="/users/sign_out" data-method="DELETE" id="sign-out" rel="nofollow">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <a href="/" class="brand">
+      <img alt="Phantom Runner Logo" src="assets/logo.png">
+    </a>
+    <ul class="nav nav-pills">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="/races">Races</a>
+        <ul class="dropdown-menu">
+          <li><a href="/races">Upcoming Races</a></li>
+          <li><a href="/races/past-races">Past Races</a></li>
+          <li class="divider"></li>
+          <li><a href="/races/my-races">My Races</a></li>
+        </ul>
+      </li>
+      <li><a href="/how_it_works">How It Works</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
