@@ -6,7 +6,7 @@ module.exports = function(app) {
 
   // Setup everything else
   require('./environments.js')(app);
-  require('./db.js')(app);
+  require('./db.js');
   //require('./middleware.js')(app);
   require('./routes.js')(app);
 
