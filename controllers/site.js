@@ -1,6 +1,12 @@
+'use strict';
+
+
+var Users = require('db.js').Users;
+
+
 module.exports = {
   fetchItems: function(id, cb) {
-    db.findAll().success(function(data){
+    Users.id.findAll().success(function(data){
       cb(data);
     });
   }
