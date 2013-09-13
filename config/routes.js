@@ -35,10 +35,11 @@ module.exports = function(app){
     });
   });
 
-  app.get('/runKeeper', function(req, res, next){
+  app.get('/rstellar', function(req, res, next){
     request.get({
-      url: 'http://www.reddit.com/subreddits/popular.json',
-      json: true
+      url: 'api.runkeeper.com',
+      authorization:
+      accept: 'application/vnd.com.runkeeper.FitnessActivityFeed+json';
     }, function(err, _res, body){
       if(err) { return next(err); }
       console.log(res);
