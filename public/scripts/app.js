@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('phantomRunnerApp', [])
+angular.module('phantomRunnerApp', [
+  // 'phantomRunnerApp.services',
+  // 'phantomRunnerApp.directives',
+  // 'phantomRunnerApp.filters',
+  // 'phantomRunnerApp.controllers'
+  ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
