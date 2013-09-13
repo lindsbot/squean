@@ -1,17 +1,18 @@
 'use strict';
 
 angular.module('phantomRunnerApp', [])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'index.html',
-        controller: 'MainCtrl'
+        templateUrl: './views/main.html'
       })
       .when('/races', {
-        templateUrl: 'views/test.html',
-        controller: 'TestCtrl'
+        templateUrl: './views/races.html'
+      })
+      .when('/faq', {
+        templateUrl: './views/faq.html'
       })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }]);
