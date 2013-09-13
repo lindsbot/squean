@@ -1,7 +1,7 @@
 'use strict';
 
 
-var Users = require('db.js').Users;
+var Users = require('../config/db.js').models.Users;
 
 
 module.exports = {

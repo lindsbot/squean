@@ -6,12 +6,19 @@ module.exports = function(app) {
 
   // Setup everything else
   require('./environments.js')(app);
-  require('./db.js')(app);
-  require('./middleware.js')(app);
+  require('./db.js');
+  //require('./middleware.js')(app);
+  require('./routes.js')(app);
 
-  app.get('/', function(req, res){
+
+
+
+  app.post('/stuff', function(req,res){
+    //may need to query req for specific model details
+    var data = 'getsome stuff from database';
+
     res.status(200);
-    res.sendfile('app/index.html');
-
+    res.end(data);
   });
+
 };
