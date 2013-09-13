@@ -1,10 +1,6 @@
 'use strict';
 
-angular.module('phantomRunnerApp')
-.controller('AccordionCtrl', '$scope', function ($scope){
-
-  });
-
+angular.module('phantomRunnerApp');
 angular.module('link', [])
   .directive('activeLink', [$location, function (location){
     return {
