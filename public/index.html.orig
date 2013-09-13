@@ -49,6 +49,12 @@
    ga('send', 'pageview');
 </script>
 
+<<<<<<< HEAD
+=======
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/jquery.js"></script>
+
+>>>>>>> 4ec9efca4fe920c2fd07fa39228cafcfb1fa27a6
 <!-- build:js scripts/plugins.js -->
 
         <!-- endbuild -->
@@ -58,6 +64,11 @@
 
         <!-- endbuild -->
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4ec9efca4fe920c2fd07fa39228cafcfb1fa27a6
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/main.js"></script>
