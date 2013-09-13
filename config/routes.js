@@ -35,12 +35,6 @@ module.exports = function(app){
     });
   });
 
-  app.get('/test-api', function(req, res, next){
-    res.json({
-      'foo' : 'bar'
-    });
-  });
-
   app.get('/runKeeper', function(req, res, next){
     request.get({
       url: 'http://www.reddit.com/subreddits/popular.json',

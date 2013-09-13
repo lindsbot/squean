@@ -1,7 +1,7 @@
 'use strict';
 
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('phantomrunner', 'root', 'plantlife');
+var sequelize = new Sequelize('phantomrunner', 'root');
 
 var Users = sequelize.define('Users',{
   id: { type: Sequelize.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
