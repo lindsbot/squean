@@ -1,12 +1,8 @@
 'use strict';
 
 angular.module('phantomRunnerApp')
-  .controller('MainCtrl', '$scope', function ($scope){
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+.controller('AccordionCtrl', '$scope', function ($scope){
+
   });
 
 angular.module('link', [])
@@ -29,3 +25,11 @@ angular.module('link', [])
       }
     };
   }]);
+
+  //   .controller('MainCtrl', '$scope', function ($scope){
+  //   $scope.awesomeThings = [
+  //     'HTML5 Boilerplate',
+  //     'AngularJS',
+  //     'Karma'
+  //   ];
+  // })
