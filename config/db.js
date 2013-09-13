@@ -77,10 +77,52 @@ var Races = sequelize.define('Races',{
   conversion_credit: { type: Sequelize.DECIMAL(10,2), defaultValue: 0.00},
 });
 
+var Race_Users = sequelize.define('Race_Users', {
+  id: { type: Sequelize.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
+  race_id: { type: Sequelize.INTEGER, defaultValue: null},
+  user_id: { type: Sequelize.INTEGER, defaultValue: null},
+  race_kind_id: { type: Sequelize.INTEGER, defaultValue: null},
+  remain_anonymous: { type: Sequelize.BOOLEAN, defaultValue: null},
+  created_at: { type: Sequelize.DATE, defaultValue: null},
+  updated_at: { type: Sequelize.DATE, defaultValue: null},
+  run_time_secs: { type: Sequelize.FLOAT, defaultValue: null},
+  run_state: { type: Sequelize.STRING, defaultValue: null},
+  run_distance_mi: { type: Sequelize.FLOAT, defaultValue: null},
+  run_submission_type: { type: Sequelize.STRING, defaultValue: null},
+  run_time_submitted_at: { type: Sequelize.DATE, defaultValue: null},
+  run_submission_uri: { type: Sequelize.STRING, defaultValue: null},
+  registered_by_user_id: { type: Sequelize.INTEGER, defaultValue: null},
+  terms_signature: { type: Sequelize.STRING, defaultValue: null},
+  run_starting_altitude_ft: { type: Sequelize.FLOAT, defaultValue: null},
+  run_starting_lat: { type: Sequelize.FLOAT, defaultValue: null},
+  run_starting_lng: { type: Sequelize.FLOAT, defaultValue: null},
+  run_starting_temp_f: { type: Sequelize.FLOAT, defaultValue: null},
+  run_uphill_ft: { type: Sequelize.FLOAT, defaultValue: null},
+  run_downhill_ft: { type: Sequelize.FLOAT, defaultValue: null},
+  run_started_at: { type: Sequelize.DATE, defaultValue: null},
+  run_time_flat_secs: { type: Sequelize.FLOAT, defaultValue: null},
+  run_time_normalized_secs: { type: Sequelize.FLOAT, defaultValue: null},
+  normalization_exceptions: { type: Sequelize.INTEGER, defaultValue: null},
+  paid: { type: Sequelize.BOOLEAN, defaultValue: null},
+  ru_shipping_first_name: { type: Sequelize.STRING, defaultValue: null},
+  ru_shipping_last_name: { type: Sequelize.STRING, defaultValue: null},
+  ru_shipping_address1: { type: Sequelize.STRING, defaultValue: null},
+  ru_shipping_address2: { type: Sequelize.STRING, defaultValue: null},
+  ru_shipping_city: { type: Sequelize.STRING, defaultValue: null},
+  ru_shipping_state: { type: Sequelize.STRING, defaultValue: null},
+  ru_shipping_zip: { type: Sequelize.STRING, defaultValue: null},
+  tshirt_size: { type: Sequelize.STRING, defaultValue: null},
+  confirmed: { type: Sequelize.BOOLEAN, defaultValue: 0},
+  accepted_u18_waiver: { type: Sequelize.BOOLEAN, defaultValue: 0},
+  user_under_18: { type: Sequelize.BOOLEAN, defaultValue: 0},
+  accepted_custom_waviers: { type: Sequelize.BOOLEAN, defaultValue: 0},
+  share: { type: Sequelize.INTEGER, defaultValue: 0},
 
+});
 
 
 module.exports = {
     Users: Users,
-    Races: Races
+    Races: Races,
+    Race_Users: Race_Users
 };
