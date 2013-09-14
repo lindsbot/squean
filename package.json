@@ -11,7 +11,8 @@
     "passport-http": "~0.2.2",
     "passport-local": "~0.1.6",
     "passport-facebook": "~1.0.1",
-    "passport-runkeeper": "~0.1.2"
+    "passport-runkeeper": "~0.1.2",
+    "passport": "~0.1.17"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
