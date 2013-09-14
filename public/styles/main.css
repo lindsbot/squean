@@ -29,8 +29,12 @@ ul {
     margin-top: 100px;
 }
 
+.hero-img {
+    width: 100%;
+}
+
 .main {
-    margin-top: 105px;
+    margin-top: 112px;
 }
 
 .raceBox {
@@ -39,4 +43,14 @@ ul {
     border: 1px solid black;
     display: inline-block;
     margin-bottom: 10px;
+}
+
+#how {
+    display: block;
+    width: 75%;
+    margin: 0 auto 0 auto;
+}
+
+.center {
+    text-align: center;
 }
