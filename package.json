@@ -7,7 +7,8 @@
     "request": "~2.27.0",
     "querystring": "~0.2.0",
     "oauth": "~0.9.10",
-    "runkeeper-js": "~0.1.2"
+    "runkeeper-js": "~0.1.2",
+    "passport-http": "~0.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
