@@ -121,6 +121,21 @@ var Race_Users = sequelize.define('Race_Users', {
 });
 
 
+var ckeditor_assets = sequelize.define('ckeditor_assets',{
+  id: { type: Sequelize.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
+  data_file_name: { type: Sequelize.STRING, allowNull: false },
+  data_content_type: { type: Sequelize.STRING, defaultValue: null },
+  data_file_size: { type: Sequelize.INTEGER, defaultValue: null },
+  assetable_id: { type: Sequelize.INTEGER, defaultValue: null },
+  assetable_type: { type: Sequelize.STRING(30), defaultValue: null },
+  type: { type: Sequelize.STRING(30), defaultValue: null },
+  width: { type: Sequelize.INTEGER, defaultValue: null },
+  height: { type: Sequelize.INTEGER, defaultValue: null },
+  created_at: { type: Sequelize.DATE, allowNull: false },
+  updated_at: { type: Sequelize.DATE, allowNull: false },
+
+})
+
 module.exports = {
     Users: Users,
     Races: Races,

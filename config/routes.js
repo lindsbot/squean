@@ -2,9 +2,16 @@
 
 var Users = require('../config/db.js').Users;
 var Races = require('../config/db.js').Races;
+var ckeditor_assets = require('../config/db.js').ckeditor_assets;
 var request = require('request');
 var raceUsers = require('../config/db.js').Race_Users;
 var apis = require('../config/api.js');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var RunKeeperStrategy = require('passport-runkeeper').Strategy;
+
+
 
 module.exports = function(app){
   //var site = require('../controllers/site.js');
@@ -30,6 +37,14 @@ module.exports = function(app){
 
   app.get('/raceUsers', function(req, res, next){
     raceUsers.findAll().complete(function(err, results){
+      if(err) { return next(err); }
+      res.json(results);
+    });
+  });
+
+
+  app.get('/ckeditor_assets', function(req, res, next){
+    ckeditor_assets.findAll().complete(function(err, results){
       if(err) { return next(err); }
       res.json(results);
     });
