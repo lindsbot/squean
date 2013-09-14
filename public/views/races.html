@@ -1,10 +1,22 @@
 <div ng-controller="Races">
+<br />
 
-{{ today }}
+HERE ARE RACES
+<br />
+<br />
+<br />
 
-{{ races }}
+<ul>
+<li ng-repeat="race in races"> 
+  <div class="raceBox span4">
 
-<script type="text/javascript">
-  console.log("yo");
-</script>
+      {{ race.name }} <br /> {{ race.created_at }} 
+
+  </div>
+
+</li>
+
+
+</ul>
+
 </div>
