@@ -139,5 +139,6 @@ var ckeditor_assets = sequelize.define('ckeditor_assets',{
 module.exports = {
     Users: Users,
     Races: Races,
-    Race_Users: Race_Users
+    Race_Users: Race_Users,
+    ckeditor_assets: ckeditor_assets
 };
