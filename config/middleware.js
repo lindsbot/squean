@@ -15,3 +15,4 @@ module.exports = function(app, passport) {
   app.use(app.router);
   console.log("IN MIDDLEWARE !!!!!!!!!!!!!!!!!!!!!!!" + JSON.stringify(passport,null,4));
 };
+
