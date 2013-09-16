@@ -1,0 +1,22 @@
+{
+
+    "app": {
+        "name": "Phantom Runner- Development"
+    },
+    "facebook": {
+        "clientID": "155374731274112",
+        "clientSecret": "3f5c06d69f381a14cde1851e3f8e9503",
+        "callbackURL": "http://localhost:3000/auth/facebook/callback"
+    },
+    "stripe": {
+        "stripeSecretKey": "sk_test_e2tVL9lYl4Kp0vHR5wxiIK8y",
+        "stripePublishableKey": "pk_test_6DAIUyPkTwlRMOadeavs3TC0",
+        "callbackURL": "http://localhost:3000/auth/stripe/callback"
+    },
+    "runkeeper": {
+        "clientID": "b8caab0f9db54512a43ce8a412b31a67",
+        "clientSecret": "d643dba1f4034d52b10782fb9869f0c6",
+        "callbackURL": "http://localhost:3000/auth/runkeeper/callback"
+    }
+}
+

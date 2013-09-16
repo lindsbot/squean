@@ -6,14 +6,12 @@ var ckeditor_assets = require('../config/db.js').ckeditor_assets;
 var request = require('request');
 var raceUsers = require('../config/db.js').Race_Users;
 var apis = require('../config/api.js');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var RunKeeperStrategy = require('passport-runkeeper').Strategy;
 
 
 
-module.exports = function(app){
+
+
+module.exports = function(app, passport){
   //var site = require('../controllers/site.js');
 
   app.get('/', function(req, res){
