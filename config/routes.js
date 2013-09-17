@@ -6,14 +6,95 @@ var ckeditor_assets = require('../config/db.js').ckeditor_assets;
 var request = require('request');
 var raceUsers = require('../config/db.js').Race_Users;
 var apis = require('../config/api.js');
+var ensureLoggedIn = require('connect-ensure-login');
+
+
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var RunKeeperStrategy = require('passport-runkeeper').Strategy;
 
 
 
+// var users = [
+//     { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
+//   , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
+// ];
+
+
+function findById(id, fn) {
+  var idx = id - 1;
+  if (users[idx]) {
+    fn(null, users[idx]);
+  } else {
+    fn(new Error('User ' + id + ' does not exist'));
+  }
+}
+
+function findByUsername(username, fn) {
+  var user = Users.find({where: {first_name: username}});
+  if (user.first_name === username) {
+    return fn(null, user);
+  }
+  // for (var i = 0, len = users.length; i < len; i++) {
+  //   var user = users[i];
+  //   if (user.username === username) {
+  //     return fn(null, user);
+  //   }
+  // }
+  return fn(null, null);
+}
 
 
 
 module.exports = function(app, passport){
   //var site = require('../controllers/site.js');
+
+    passport.serializeUser(function(user, done) {
+      done(null, user);
+    });
+
+    passport.deserializeUser(function(obj, done) {
+      done(null,obj);
+    });
+
+    // Use local strategy
+
+    passport.use(new LocalStrategy(
+      function(username, password, done) {
+        process.nextTick( function() {
+          findByUsername(username, done);
+        }
+        );
+      }
+    ));
+
+  app.post('/login',
+    passport.authenticate('local',
+      {successRedirect: '/',
+      failureRedirect: '/login'}));
+
+
+      // if (req.user) { console.log(req.user); }
+      // else { console.log('no such user'); }
+      // res.status(200);
+      // res.end(req.user);
+
+
+
+    // passport.authenticate('local', {successRedirect: '/',
+    // failureRedirect:'/login'}));
+
+  app.get('/login', function(req, res){
+    res.status(200);
+    res.sendfile('./public/indexLogin.html');
+  });
+
+    //   passport.authenticate('local', function(err,user){
+    //   if(err) {return next(err);}
+    //   if(!user) {return res.redirect('/login'); }
+    //   req.logIn(user)
+    // });
+
 
   app.get('/', function(req, res){
     res.status(200);

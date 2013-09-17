@@ -8,8 +8,7 @@ module.exports = function(app,passport) {
   require('./environments.js')(app);
   require('./db.js');
   require('./middleware.js')(app,passport);
-  require('./routes.js')(app);
-  console.log("IN INDEX !!!!!!!!!!!!!!!!!!!!!!!" + JSON.stringify(passport,null,4));
+  //require('./routes.js')(app,passport);
 
 
 

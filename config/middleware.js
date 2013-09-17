@@ -13,6 +13,5 @@ module.exports = function(app, passport) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
-  console.log("IN MIDDLEWARE !!!!!!!!!!!!!!!!!!!!!!!" + JSON.stringify(passport,null,4));
 };
 
