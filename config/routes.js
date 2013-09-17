@@ -1,5 +1,6 @@
 'use strict';
 
+var pass = require('./passport.js');
 var Users = require('../config/db.js').Users;
 var Races = require('../config/db.js').Races;
 var ckeditor_assets = require('../config/db.js').ckeditor_assets;
@@ -9,13 +10,6 @@ var apis = require('../config/api.js');
 var ensureLoggedIn = require('connect-ensure-login');
 
 
-var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var RunKeeperStrategy = require('passport-runkeeper').Strategy;
-
-
-
-
 
 
 
@@ -23,8 +17,16 @@ module.exports = function(app, passport){
 
   app.post('/login',
     passport.authenticate('local',
-      {successRedirect: '/',
-      failureRedirect: '/loginFail'}));
+        {successRedirect: '/',
+        failureRedirect: '/loginFail'}));
+
+
+
+  app.get('/secret', pass.ensureAuthenticated(), function(req, res){
+      res.status(200);
+      res.sendfile('./public/index.html');
+    }
+  );
 
   app.get('/loginFail', function(req, res){
     res.status(200);

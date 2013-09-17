@@ -1,15 +1,33 @@
+'use strict';
+
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var db = require('../config/db.js');
-
+var FacebookStrategy = require('passport-facebook').Strategy;
+var RunKeeperStrategy = require('passport-runkeeper').Strategy;
+var db = require('./db.js');
+var routes = require('./routes.js');
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(obj, done) {
   done(null,obj);
 });
+
+
+
+exports.ensureAuthenticated = function(){
+  console.log("IN ensureAuthenticated !!!!!!!!!!!!");
+  return function(req, res, next){
+    if(req.isAuthenticated()){
+      console.log("req.isAuthenticated")
+      next();
+    }
+    res.status(401);
+    res.send("THIS IS THE STRING of SANITY");
+  };
+};
 
 function findById(id, fn) {
   var idx = id - 1;
@@ -21,29 +39,36 @@ function findById(id, fn) {
 }
 
 function findByUsername(username, fn) {
-  var user = db.Users.find({where: {first_name: username}});
-  if (user.first_name === username) {
-    return fn(null, user);
-  }
-  return fn(null, null);
+  db.Users.find({where: {first_name: username}}).success(function(user){
+      if (user.first_name === username) {
+      return fn(null, user);
+      }
+      return fn(null, null);
+    }
+  ).error(function(err){
+    console.log(err);
+  });
 }
 
 
 
 // Use local strategy
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-     console.log ("LocalStrategy invoked");
-    process.nextTick(function() {
-      findByUsername(username, done);
+passport.use(new LocalStrategy(function(username, password, done) {
+  console.log('THIS IS LOCAL STRATEGY');
+  db.Users.find({where: {first_name: username}})
+  .success(function(user){
+    if(!user) {
+      return done(null, false, {message: 'Unknown user: ' + user});
     }
-    );
-  }
-));
+    console.log(user);
+    done(null, user);
+  });
+}));
 
 module.exports = {
-
-}
+  findByUsername: findByUsername,
+  findById: findById,
+};
 
 
 
