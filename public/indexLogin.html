@@ -39,7 +39,6 @@
         $('button').on('click', function(){
 
         var username = $("#username").val();
-        console.log(username);
         var password = $("#password").val();
         var JSONdata = JSON.stringify({username: username, password: password});
 
@@ -49,11 +48,9 @@
             url: 'http://localhost:3000/login',
 
             data: JSONdata,
-            success: function(){
-              // if(data.redirect){
-              //   console.log(data.redirect);
-              //   window.location.href = data.redirect;
-              // }
+            success: function(data){
+              console.log(data);
+              window.location.href = data;
               console.log("Success AJAX")},
 
             error: function(){console.log("ERROR AJAX")}

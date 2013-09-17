@@ -71,14 +71,18 @@ module.exports = function(app, passport){
   app.post('/login',
     passport.authenticate('local',
       {successRedirect: '/',
-      failureRedirect: '/login'}));
+      failureRedirect: '/loginFail'}));
 
 
       // if (req.user) { console.log(req.user); }
       // else { console.log('no such user'); }
       // res.status(200);
       // res.end(req.user);
+  app.get('/loginFail', function(req, res){
+    res.status(200);
 
+    res.send('/login');
+  });
 
 
     // passport.authenticate('local', {successRedirect: '/',
@@ -86,6 +90,7 @@ module.exports = function(app, passport){
 
   app.get('/login', function(req, res){
     res.status(200);
+
     res.sendfile('./public/indexLogin.html');
   });
 
