@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var pass = require('./config/passport.js');
 var passport = require('passport');
 var http = require('http');
 

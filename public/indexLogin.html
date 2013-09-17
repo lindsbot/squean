@@ -46,13 +46,11 @@
           $.ajax({
             type: 'POST',
             url: 'http://localhost:3000/login',
-
             data: JSONdata,
             success: function(data){
               console.log(data);
               window.location.href = data;
               console.log("Success AJAX")},
-
             error: function(){console.log("ERROR AJAX")}
           });
       }); 
