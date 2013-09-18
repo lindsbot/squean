@@ -19,7 +19,7 @@
     }
   };
 
-exports.userRoles = buildRoles(config.roles);
+
 
 //Method to build bitMask for each  role
   var buildRoles = function(roles){
@@ -81,7 +81,7 @@ exports.userRoles = buildRoles(config.roles);
 
     return accessLevels;
   };
-
+  exports.userRoles = buildRoles(config.roles);
   exports.accessLevels = buildAccessLevels(config.accessLevels, exports.userRoles);
 
 })(typeof exports === 'undefined' ? this['routesConfig'] = {} : exports);

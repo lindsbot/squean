@@ -15,7 +15,8 @@
     "passport": "~0.1.17",
     "connect-ensure-login": "~0.1.1",
     "connect-flash": "~0.1.1",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "validator": "~1.5.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

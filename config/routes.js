@@ -1,40 +1,18 @@
 'use strict';
 
 var passport = require('passport');
-var Users = require('./db.js').Users;
-var Races = require('./db.js').Races;
-var ckeditor_assets = require('./db.js').ckeditor_assets;
+var Users = require('../models/db.js').Users;
+var Races = require('../models/db.js').Races;
+var ckeditor_assets = require('../models/db.js').ckeditor_assets;
 var request = require('request');
-var raceUsers = require('./db.js').Race_Users;
+var raceUsers = require('../models/db.js').Race_Users;
 var apis = require('./api.js');
 var ensureLoggedIn = require('connect-ensure-login');
-var users = require('../controllers/users');
-var pass = require('./passport.js');
 var _ = require('underscore');
-var db = require('./db.js');
-var LocalStrategy = require('passport-local').Strategy;
+var db = require('../models/db.js');
 
 
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
 
-  passport.deserializeUser(function(obj, done) {
-    done(null,obj);
-  });
-
-  // Use local strategy
-  passport.use(new LocalStrategy(function(username, password, done) {
-    console.log('THIS IS LOCAL STRATEGY' + username);
-    db.Users.find({where: {email: username}})
-    .success(function(user){
-      if(!user) {
-        return done(null, false, {message: 'Unknown user: ' + user});
-      }
-      console.log('USERS EMAIL: ' + user.email);
-      done(null, user);
-    });
-  }));
 
 //////////// FROM PASSPORT.JS
 
@@ -53,25 +31,6 @@ var ensureAuthenticated = function(){
 
 
 module.exports = function(app, passport){
-
-  app.post('/login', function(req, res, next) {
-    console.log("req.body : ", req.body);   
-    console.log("req.user : ", req.user);   
-    console.log("req.session : ", req.session);
-    passport.authenticate('local', function(err, user, info){
-      if (err || !user) { res.send(402); }
-      req.logIn(user, function(err) {
-        if (err){
-          console.log('App.post Error within routes.js' + err);
-          res.send(403);
-
-        }
-        res.send(200, "/races");
-        console.log('After app.post success', err, user, info);
-      });
-    })(req, res, next);
-  });
-
   // app.all('*', function(req,res,next){
   //   if(req.isAuthenticated()){
   //     return next();
@@ -88,11 +47,6 @@ module.exports = function(app, passport){
     res.status(200);
     res.sendfile('./public/indexLogin.html');
   });
-
-
-
-
-
 
 
 

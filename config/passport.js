@@ -4,7 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var RunKeeperStrategy = require('passport-runkeeper').Strategy;
-var db = require('./db.js');
+var db = require('../models/db.js');
 var routes = require('./routes.js');
 
 module.exports = function(passport){
