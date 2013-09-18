@@ -46,6 +46,7 @@
           $.ajax({
             type: 'POST',
             url: 'http://localhost:3000/login',
+            contentType: 'application/json',
             data: JSONdata,
             success: function(data){
               console.log(data);

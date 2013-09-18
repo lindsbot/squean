@@ -16,6 +16,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //////////// FROM PASSPORT.JS
 
   passport.serializeUser(function(user, done) {
+    console.log(user);
     done(null, user.id);
   });
 
@@ -54,9 +55,28 @@ var ensureAuthenticated = function(){
 
 module.exports = function(app, passport){
 
-  app.get('/signin', users.signin);
-  app.get('/signup', users.signup);
-  app.get('/signout', users.signout);
+  app.post('/login', function(req, res, next) {
+    console.log(req.body);
+    passport.authenticate('local', function(err, user, info){
+      if (err || !user) { res.send(402); }
+      req.logIn(user, function(err) {
+        if (err){
+          console.log(err);
+          res.send(403);
+
+        }
+        res.send(200);
+        console.log(err, user, info);
+      });
+    })(req, res, next);
+  });
+
+  // app.all('*', function(req,res,next){
+  //   if(req.isAuthenticated()){
+  //     return next();
+  //   }
+  //   return res.send(401, 'Unauthorized User');
+  // });
 
   app.get('/', function(req, res){
     res.status(200);
@@ -68,18 +88,7 @@ module.exports = function(app, passport){
     res.sendfile('./public/indexLogin.html');
   });
 
-  app.post('/login', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info){
-      if (err || !user) { res.send(402); }
-      req.logIn(user, function(err) {
-        if (err){
-          res.send(403);
-        }
-        res.send(200);
-        console.log(err, user, info);
-      });
-    })(req, res, next);
-  });
+
 
 
 
