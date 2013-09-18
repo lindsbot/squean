@@ -10,13 +10,12 @@ var apis = require('./api.js');
 var ensureLoggedIn = require('connect-ensure-login');
 var users = require('../controllers/users');
 var pass = require('./passport.js');
+var db = require('./db.js');
 var LocalStrategy = require('passport-local').Strategy;
 
 
-//////////// FROM PASSPORT.JS
-
   passport.serializeUser(function(user, done) {
-    console.log(user);
+
     done(null, user.id);
   });
 
@@ -26,13 +25,13 @@ var LocalStrategy = require('passport-local').Strategy;
 
   // Use local strategy
   passport.use(new LocalStrategy(function(username, password, done) {
-    console.log('THIS IS LOCAL STRATEGY');
-    db.Users.find({where: {first_name: username}})
+    console.log('THIS IS LOCAL STRATEGY' + username);
+    db.Users.find({where: {email: username}})
     .success(function(user){
       if(!user) {
         return done(null, false, {message: 'Unknown user: ' + user});
       }
-      console.log(user);
+      console.log('USERS EMAIL: ' + user.email);
       done(null, user);
     });
   }));
@@ -48,7 +47,7 @@ var ensureAuthenticated = function(){
       next();
     }
     res.status(401);
-    res.send("THIS IS THE STRING of SANITY");
+    res.send("ensureAuthenticated is firing");
   };
 };
 
@@ -56,17 +55,17 @@ var ensureAuthenticated = function(){
 module.exports = function(app, passport){
 
   app.post('/login', function(req, res, next) {
-    console.log(req.body);
+    console.log("req.body", req.body);
     passport.authenticate('local', function(err, user, info){
       if (err || !user) { res.send(402); }
       req.logIn(user, function(err) {
         if (err){
-          console.log(err);
+          console.log('App.post Error within routes.js' + err);
           res.send(403);
 
         }
         res.send(200);
-        console.log(err, user, info);
+        console.log('After app.post success', err, user, info);
       });
     })(req, res, next);
   });
@@ -151,7 +150,7 @@ module.exports = function(app, passport){
       Accept: 'application/vnd.com.runkeeper.FitnessActivityFeed+json'
     }, function(err, _res, body){
       if(err) { return next(err); }
-      console.log(res);
+      console.log('Runkeeper response: ',res);
       res.json(body);
     });
   });
