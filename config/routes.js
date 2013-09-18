@@ -15,7 +15,6 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
   passport.serializeUser(function(user, done) {
-
     done(null, user.id);
   });
 
@@ -64,7 +63,7 @@ module.exports = function(app, passport){
           res.send(403);
 
         }
-        res.send(200);
+        res.send(200, "/races");
         console.log('After app.post success', err, user, info);
       });
     })(req, res, next);
