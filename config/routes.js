@@ -10,6 +10,7 @@ var apis = require('./api.js');
 var ensureLoggedIn = require('connect-ensure-login');
 var users = require('../controllers/users');
 var pass = require('./passport.js');
+var _ = require('underscore');
 var db = require('./db.js');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -54,7 +55,9 @@ var ensureAuthenticated = function(){
 module.exports = function(app, passport){
 
   app.post('/login', function(req, res, next) {
-    console.log("req.body", req.body);
+    console.log("req.body : ", req.body);   
+    console.log("req.user : ", req.user);   
+    console.log("req.session : ", req.session);
     passport.authenticate('local', function(err, user, info){
       if (err || !user) { res.send(402); }
       req.logIn(user, function(err) {
