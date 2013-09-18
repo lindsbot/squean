@@ -1,3 +1,4 @@
+var flash = require('connect-flash');
 /**
  * Module dependencies.
  */
@@ -14,9 +15,9 @@ exports.authCallback = function(req, res, next) {
  * Show login form
  */
 exports.signin = function(req, res) {
-    res.render('users/signin', {
-        title: 'Signin',
-        message: req.flash('error')
+    res.render('login', {
+        title: 'Signin'
+        // message: req.flash('error')
     });
 };
 

@@ -7,68 +7,61 @@ var RunKeeperStrategy = require('passport-runkeeper').Strategy;
 var db = require('./db.js');
 var routes = require('./routes.js');
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null,obj);
-});
+module.exports = function(passport){
 
 
 
-exports.ensureAuthenticated = function(){
-  console.log("IN ensureAuthenticated !!!!!!!!!!!!");
-  return function(req, res, next){
-    if(req.isAuthenticated()){
-      console.log("req.isAuthenticated")
-      next();
-    }
-    res.status(401);
-    res.send("THIS IS THE STRING of SANITY");
-  };
+// var ensureAuthenticated = function(){
+//   console.log("IN ensureAuthenticated !!!!!!!!!!!!");
+//   return function(req, res, next){
+//     if(req.isAuthenticated()){
+//       console.log("req.isAuthenticated")
+//       next();
+//     }
+//     res.status(401);
+//     res.send("THIS IS THE STRING of SANITY");
+//   };
+// };
+
+
 };
 
-function findById(id, fn) {
-  var idx = id - 1;
-  if (users[idx]) {
-    fn(null, users[idx]);
-  } else {
-    fn(new Error('User ' + id + ' does not exist'));
-  }
-}
-
-function findByUsername(username, fn) {
-  db.Users.find({where: {first_name: username}}).success(function(user){
-      if (user.first_name === username) {
-      return fn(null, user);
-      }
-      return fn(null, null);
-    }
-  ).error(function(err){
-    console.log(err);
-  });
-}
 
 
 
-// Use local strategy
-passport.use(new LocalStrategy(function(username, password, done) {
-  console.log('THIS IS LOCAL STRATEGY');
-  db.Users.find({where: {first_name: username}})
-  .success(function(user){
-    if(!user) {
-      return done(null, false, {message: 'Unknown user: ' + user});
-    }
-    console.log(user);
-    done(null, user);
-  });
-}));
 
-module.exports = {
-  findByUsername: findByUsername,
-  findById: findById,
-};
+
+
+
+
+// function findById(id, fn) {
+//   var idx = id - 1;
+//   if (users[idx]) {
+//     fn(null, users[idx]);
+//   } else {
+//     fn(new Error('User ' + id + ' does not exist'));
+//   }
+// }
+
+// function findByUsername(username, fn) {
+//   db.Users.find({where: {first_name: username}}).success(function(user){
+//       if (user.first_name === username) {
+//       return fn(null, user);
+//       }
+//       return fn(null, null);
+//     }
+//   ).error(function(err){
+//     console.log(err);
+//   });
+// }
+
+
+
+
+// module.exports = {
+//   findByUsername: findByUsername,
+//   findById: findById
+// };
 
 
 
