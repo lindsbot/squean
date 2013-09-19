@@ -7,7 +7,10 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
 
   $cookieStore.remove('user');
 
-  // change user function
+  var changeUser = function(user){
+    
+
+  }
 
   return {
     // authorization functions
