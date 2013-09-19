@@ -12,8 +12,8 @@ var db = require('./db.js');
 
 module.exports = {
   addUser: function(credentials, role, callback){
-    if(this.findByEmail(credentials.email) !== undefined) { return callback("UserAlreadyExists");}
-
+    console.log('/User.js --> credentials.email :',module.exports.findByEmail(credentials.email));
+    if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
     var user = db.Users.build({
       email: credentials.email,
       encrypted_password: credentials.password || "test",
@@ -23,13 +23,12 @@ module.exports = {
       gender: credentials.gender  || "test",
       birthday: credentials.birthday || new Date(),
       time_zone: credentials.time_zone || "test",
-      favorite_shoes: credentials.favorite_shoes || "testShoes"
+      favorite_shoe: credentials.favorite_shoes || "testShoes"
     })
     .save()
-    .success(function(task){
-      console.log("model/User.js -- user saved to db", credentials.email);
-      console.log("model/User.js -- What is this ? -->", task);
-      callback(null, this);
+    .success(function(data){
+      console.log("model/User.js THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
+      callback(data.email);
     })
     .error(function(error){
       console.log("model/User.js ERROR saving to DB :", error);
@@ -51,7 +50,11 @@ module.exports = {
 
 
   findByEmail: function(email){
-    return db.Users.find({where: {email: email}});
+    if(db.Users.find({where: {email: email}}) === email){
+      return true;
+    } else {
+      return false;
+    }
   },
 
   //Validator Docs: https://github.com/chriso/node-validator

@@ -3,7 +3,7 @@
 
 var _ = require('underscore');
 var User = require('../models/User.js');
-var userRoles = require('../public/scripts/routesConfig/js').userRoles;
+var userRoles = require('../public/scripts/routesConfig.js').userRoles;
 
 
 module.exports = {
