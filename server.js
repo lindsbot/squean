@@ -59,6 +59,27 @@ app.use(app.router);
     })(req, res, next);
   });
 
+ app.post('/createUser', function(req, res, next) {
+    console.log("server.js - /create User, req.body : ", req.body);
+    // console.log("req.session : ", req.session);
+    User.addUser(req.body, req.body.role, function(data){
+      console.log('server.js, app.post -- user data :', data);
+    });
+    passport.authenticate('local', function(err, user, info) {
+      if (err || !user) { res.send(402); }
+      console.log("Req.user ", req.user);
+      req.logIn(user, function(err) {
+        if (err){
+          console.log('Routes/App.post/login' + err);
+          res.send(403);
+        }
+        res.send(200, '/races');
+        console.log("req.user : ", req.user);
+        console.log('After app.post success', err, user, info);
+      });
+    })(req, res, next);
+  });
+
 
 
 http.createServer(app).listen(app.get('port'), function () {

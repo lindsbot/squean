@@ -48,6 +48,11 @@ module.exports = function(app, passport){
     res.sendfile('./public/indexLogin.html');
   });
 
+  app.get('/createUser', function(req, res){
+    res.status(200);
+    res.sendfile('./public/createUser.html');
+  });
+
 
 
 

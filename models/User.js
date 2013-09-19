@@ -12,7 +12,7 @@ var db = require('./db.js');
 
 module.exports = {
   addUser: function(credentials, role, callback){
-    if(findByEmail(credentials.email) !== undefined) { return callback("User Already Exists");}
+    if(this.findByEmail(credentials.email) !== undefined) { return callback("User Already Exists");}
 
     var user = db.Users.build({
       email: credentials.email,
