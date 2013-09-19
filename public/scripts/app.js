@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('phantomRunnerApp', ['ngCookies'])
-  .config(['$routeProvider', '$locationProvider', '$httpProvider' function ($routeProvider, $locationProvider, $httpProvider) {
+  .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     // accessLevels: public, user, director, admin 
-    var access = routesConfig.accessLevels;
+    // var access = routesConfig.accessLevels;
 
     $routeProvider
       .when('/', {
