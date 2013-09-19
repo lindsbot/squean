@@ -1,0 +1,64 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="phantomRunnerApp"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/bootstrap.css">
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- endbuild -->
+  <script src="bower_components/jquery/jquery.js"></script>
+
+
+</head>
+
+<body>
+
+
+  <div style="margin-top: 200px">
+
+      <input type="text" id="username">username</input>
+      <input type="text" id="password">password</input>
+      <button id="clickMe">Enter</button>
+  </div>
+
+
+<script>
+
+
+
+        $('button').on('click', function(){
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var JSONdata = JSON.stringify({username: username, password: password});
+
+
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/login',
+            contentType: 'application/json',
+            data: JSONdata,
+            success: function(data){
+              console.log(data);
+              window.location.href = data;
+              console.log("Success AJAX")},
+            error: function(){console.log("ERROR AJAX")}
+          });
+      }); 
+</script>
+
+
+
+
+</body>
+</html>
