@@ -19,7 +19,7 @@ module.exports = {
   addUser: function(credentials, role, callback){
     console.log('/User.js --> credentials.email :',module.exports.findByEmail(credentials.email));
     if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
-    
+
     var user = db.Users.build({
       email: credentials.email,
       encrypted_password: credentials.password || "test",
