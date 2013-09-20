@@ -2,7 +2,7 @@
 
 //var config = require('./config.json');
 
-var User
+
 
 var _ = require('underscore');
 var passport = require('passport');

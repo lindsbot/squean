@@ -29,7 +29,7 @@ var routes = [
 
   //Views
   {  //TODO: update according to front-end convention
-    path: '/partials/*',
+    path: '/views/*',
     httpMethod: 'GET',
     middleware: [function (req, res){
       var requestedView = path.join('./',req.url);
@@ -60,9 +60,6 @@ var routes = [
     httpMethod: 'POST',
     middleware: [AuthCtrl.register]
   },
-
-
-
   {
     path: '/login',
     httpMethod: 'POST',
@@ -130,26 +127,6 @@ module.exports = function(app){
   });
 
 };
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-=======
-  app.get('/', function(req, res){
-    console.log("Hello!");
-    res.status(200);
-    res.sendfile('./public/index.html');
-  });
->>>>>>> clientSideRouting
-
-
-
 
 
 
