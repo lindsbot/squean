@@ -6,8 +6,9 @@
 var _ = require('underscore');
 var path = require('path');
 var passport = require('passport');
-var AuthCtrl = require('../controllers/auth.js');
-var UserCtrl = require('../controllers/user.js');
+var AuthCtrl = require('../controllers/authController.js');
+var UserCtrl = require('../controllers/userController.js');
+var RaceCtrl = require('../controllers/racesController.js');
 var User     = require('../models/User.js');
 var userRoles = require('../public/scripts/routesConfig.js').userRoles;
 var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
@@ -96,8 +97,7 @@ var routes = [
   {
     path:'/racedata',
     httpMethod:'GET',
-    middleware: [UserCtrl.index],
-    accessLevel: accessLevels.admin
+    middleware: [RaceCtrl.index]
   },
 
   {
