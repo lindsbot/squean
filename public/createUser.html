@@ -1,0 +1,81 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="phantomRunnerApp"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/bootstrap.css">
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- endbuild -->
+  <script src="bower_components/jquery/jquery.js"></script>
+
+
+</head>
+
+<body>
+
+
+  <div style="margin-top: 200px">
+
+      <input type="text" id="email">email</input><br>
+      <input type="text" id="password">password</input><br>
+      <input type="text" id="gender">gender</input><br>
+      <input type="text" id="shoes">shoes</input><br>
+      <input type="text" id="state">state</input><br>
+      <input type="text" id="birthday">birthday</input><br>
+      <button id="clickMe">Enter</button><br>
+  </div>
+
+
+<script>
+
+
+
+        $('button').on('click', function(){
+
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var gender = $("#gender").val();
+        var shoes = $("#shoes").val();
+        var state = $("#state").val();
+        var birthday = $("#birthday").val();
+        var role = "admin";
+
+        var JSONdata = JSON.stringify({
+          email: email,
+          password: password,
+          birthday: birthday,
+          state: state,
+          shoes: shoes,
+          gender: gender
+        });
+
+
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/createUser',
+            contentType: 'application/json',
+            data: JSONdata,
+            success: function(data){
+              console.log(data);
+              window.location.href = data;
+              console.log("Success AJAX")},
+            error: function(){console.log("ERROR AJAX")}
+          });
+      }); 
+</script>
+
+
+
+
+</body>
+</html>

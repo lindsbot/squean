@@ -9,7 +9,7 @@ var passport = require('passport');
 var AuthCtrl = require('../controllers/auth.js');
 var UserCtrl = require('../controllers/user.js');
 var User     = require('../models/User.js');
-var userRoles = require('../public/scripts/routesConfig.js').userRoles;
+var userRoles = require('../public/scripts/routesConfig.js')userRoles;
 var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
 
 
@@ -18,7 +18,7 @@ function ensureAuthorized(req,res,next) {
   if(!req.user){ role = userRoles.public; }
   else         { role = req.user.role; }
 
-  var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevels.public;
+  var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevel.public;
 
   if(!(accessLevel.bitMask & role.bitMask)){ return res.send(403);}
 
@@ -60,9 +60,6 @@ var routes = [
     httpMethod: 'POST',
     middleware: [AuthCtrl.register]
   },
-
-
-
   {
     path: '/login',
     httpMethod: 'POST',
@@ -86,8 +83,7 @@ var routes = [
     path: '/*',
     httpMethod: 'GET',
     middleware: [function(req,res) {
-      var role = userRoles.public, 
-         email = '';
+      var role = userRoles.public, email = '';
       if(req.user){
         role = req.user.role;
         email = req.user.email;
@@ -96,7 +92,7 @@ var routes = [
         'email' : email,
         'role': role
       }));
-      res.redirect('/');
+      res.render('index');
     }]
   }
 ];
