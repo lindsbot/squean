@@ -59,6 +59,7 @@ angular.module('phantomRunnerApp')
         $location.path('/');
       },
       function(err) {
+        console.log("Error login :", err);
         $rootScope.error = "Failed to login";
       });
     };

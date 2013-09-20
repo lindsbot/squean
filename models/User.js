@@ -70,9 +70,9 @@ module.exports = {
 
 
   localStrategy: new LocalStrategy(
-    function(username, password, done) {
-      console.log('/models/User -- localStrategy :' + username);
-      db.Users.find({where: {email: username}})
+    function(email, password, done) {
+      console.log('/models/User -- localStrategy :' + email);
+      db.Users.find({where: {email: email}})
       .success(function(user){
       if(!user) {
         return done(null, false, {message: 'Unknown user: ' + user});
