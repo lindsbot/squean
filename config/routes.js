@@ -60,6 +60,9 @@ var routes = [
     httpMethod: 'POST',
     middleware: [AuthCtrl.register]
   },
+
+
+
   {
     path: '/login',
     httpMethod: 'POST',
@@ -83,7 +86,8 @@ var routes = [
     path: '/*',
     httpMethod: 'GET',
     middleware: [function(req,res) {
-      var role = userRoles.public, email = '';
+      var role = userRoles.public, 
+         email = '';
       if(req.user){
         role = req.user.role;
         email = req.user.email;

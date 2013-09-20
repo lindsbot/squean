@@ -57,7 +57,7 @@ module.exports = {
     } else {
       return false;
     }
-  },1
+  },
 
   //Validator Docs: https://github.com/chriso/node-validator
   validate: function(requestBody){
@@ -85,12 +85,12 @@ module.exports = {
 
   //TODO: review process.env and keys.
   facebookStrategy: function() {
-    if(!process.env.FACEBOOK_APP_ID) { throw new Error('A Facebook App ID is required if you want to enable login via Facebook.');}
-    if(!process.env.FACEBOOK_APP_SECRET) { throw new Error('A Facebook App Secret is required if you want to enable login via Facebook.');}
+   // if(!process.env.FACEBOOK_APP_ID) { throw new Error('A Facebook App ID is required if you want to enable login via Facebook.');}
+    //if(!process.env.FACEBOOK_APP_SECRET) { throw new Error('A Facebook App Secret is required if you want to enable login via Facebook.');}
 
     return new FacebookStrategy({
-        clientID: process.env.FACEBOOK_APP_ID,
-        clientSecret: process.env.FACEBOOK_APP_SECRET,
+        clientID: '155374731274112',
+        clientSecret: '3f5c06d69f381a14cde1851e3f8e9503',
         callbackURL: process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3000/auth/facebook/callback"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -114,10 +114,13 @@ module.exports = {
 
 };
 
+//    "clientID": "155374731274112",
+//         "clientSecret": "3f5c06d69f381a14cde1851e3f8e9503",
+//         "callbackURL": "http://localhost:3000/auth/facebook/callback"
 
 
-
-
+// process.env.FACEBOOK_APP_ID
+// process.env.FACEBOOK_APP_SECRET
 
 
 
