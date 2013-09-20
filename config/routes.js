@@ -139,6 +139,14 @@ module.exports = function(app){
 
 
 
+<<<<<<< HEAD
+=======
+  app.get('/', function(req, res){
+    console.log("Hello!");
+    res.status(200);
+    res.sendfile('./public/index.html');
+  });
+>>>>>>> clientSideRouting
 
 
 

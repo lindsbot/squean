@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" ng-app="phantomRunnerApp"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" data-ng-app="phantomRunnerApp"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +19,7 @@
   <script src="bower_components/jquery/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui/build/angular-ui.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 </head>
 
@@ -60,8 +61,11 @@
         <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/routesConfig.js"></script>
 <script src="scripts/app.js"></script>
-<script src="scripts/controllers/main.js"></script>
+<script src="scripts/services.js"></script>
+<script src="scripts/controllers.js"></script>
+<script src="scripts/directives.js"></script>
         <!-- endbuild -->
 </body>
 </html>

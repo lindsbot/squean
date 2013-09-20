@@ -1,6 +1,14 @@
-<div class="navbar navbar-fixed-top center">
+<div class="navbar navbar-fixed-top" data-ng-controller="NavCtrl">
   <div class="navbar-inner">
     <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a href="/" class="brand">
+        <img alt="Phantom Runner Logo" src="assets/logo.png">
+      </a>
       <div id="account-links" class="pull-right">
         <a class="btn btn-dropdown-toggle">
           {{username}} text
@@ -19,9 +27,6 @@
           </li>
         </ul>
       </div>
-    <a href="/" class="brand">
-      <img alt="Phantom Runner Logo" src="assets/logo.png">
-    </a>
     <ul class="nav nav-pills">
       <li><a href="/" active-link="active">Home</a></li>
       <li class="dropdown">
@@ -33,7 +38,7 @@
           <li><a href="#/races/my-races">My Races</a></li>
         </ul>
       </li>
-      <li><a href="#/how_it_works" active-link="active">How It Works</a></li>
+      <li><a href="#/how" active-link="active">How It Works</a></li>
       <li><a href="#/faq" active-link="active">FAQ</a></li>
       <li><a href="#/contact" active-link="active">Contact Us</a></li>
     </ul>
