@@ -1,58 +1,56 @@
 <div class="container" ng-controller="RegisterCtrl">
+  <form ng-submit="register()" name="registerForm">
 Email
-<input></input>
+<input data-ng-model="email"></input>
 <br>
 
 Password
-<input></input>
+<input data-ng-model="password"></input>
 <br>
 
 
 Confirm Password
-<input></input>
+<input data-ng-model="passwordConfirm"></input>
 <br>
 
 First Name
-<input></input>
+<input data-ng-model="firstName"></input>
 <br>
 
 
 Last Name
-<input></input>
+<input data-ng-model="lastName"></input>
 <br>
 
 <!-- should be dropdown -->
 State
-<input></input>
+<input data-ng-model="state"></input>
 <br>
 
 <!-- should be dropdown -->
 Gender
-<input></input>
+<input data-ng-model="gender"></input>
 <br>
 
 <!-- should be dropdown -->
 Birthday
-<input></input>
+<input data-ng-model="birthday"></input>
 <br>
 
 <!-- should be dropdown -->
 Timezone
-<input></input>
+<input data-ng-model="timezone"></input>
 <br>
 
 <!-- should be dropdown -->
 Running Shoes
-<input></input>
+<input data-ng-model="runningShoes"></input>
 <br>
-
-<button>
-  Cancel
-</button>
 
 <button>
   Complete Registration
 </button>
+</form>
 </div>
 
 <br>

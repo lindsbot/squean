@@ -9,22 +9,29 @@ module.exports = {
         User.validate(req.body);
       }
       catch(err){
+        console.log(err, __dirname);
         return res.send(400, err.message);
       }
       //Ensure error strings are identical in User.js
-      User.addUser(req.body.username,req.body.password, req.body.role, function(err, user){
+      User.addUser(req.body, req.body.role, function(err, user){
+        console.log("auth.js thinks this is the err: ", err);
+        console.log("auth.js thinks this is the user: ", user.dataValues.email);
         if(err === 'UserAlreadyExists'){
           return res.send(403, 'User already Exists');}
 
         else if(err){
+          console.log(err, __dirname);
           return res.send(500);}
 
-        req.logIn(user, function(err){
-          if(err){
-            next(err);}
 
-          else {
-            res.json(200, {'role': user.role, 'email':user.email});}
+
+        req.logIn(user.dataValues, function(err){
+          if(err){
+            next(err);
+          }
+
+        res.json(200, {'role': 'admin', 'email':user});
+
         });
       });
     },

@@ -14,7 +14,7 @@ var db = require('./db.js');
 
 module.exports = {
   addUser: function(credentials, role, callback){
-    console.log('/User.js --> credentials.email :',module.exports.findByEmail(credentials.email));
+    console.log('/User.js --> credentials :', credentials.email);
     if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
     var user = db.Users.build({
       email: credentials.email,
@@ -30,7 +30,7 @@ module.exports = {
     .save()
     .success(function(data){
       console.log("model/User.js THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
-      callback(data.email);
+      callback(null, data);
     })
     .error(function(error){
       console.log("model/User.js ERROR saving to DB :", error);
@@ -61,6 +61,7 @@ module.exports = {
 
   //Validator Docs: https://github.com/chriso/node-validator
   validate: function(requestBody){
+    console.log(requestBody, __dirname);
     check(requestBody.email, ' Email must be a valid email').len(6, 64).isEmail();
     check(requestBody.password, 'Password must be between 5-20 characters').len(5,20);
 
@@ -102,7 +103,7 @@ module.exports = {
 
 
     serializeUser: function(user, done) {
-        done(null, user.id);
+        done(null, user);
     },
 
     deserializeUser: function(email, done) {

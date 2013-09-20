@@ -20,6 +20,7 @@ app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.session({ secret: 'SECRET'}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -27,6 +28,9 @@ app.use(passport.session());
 passport.use(User.localStrategy);
 passport.use(User.facebookStrategy());
 //passport.use(User.runkeeperStrategy());
+
+passport.serializeUser(User.serializeUser);
+passport.deserializeUser(User.deserializeUser);
 
 
 //Pass app and passport to routes.js

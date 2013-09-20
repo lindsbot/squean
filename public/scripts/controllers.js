@@ -10,7 +10,7 @@
 // }]);
 
 angular.module('phantomRunnerApp')
-.controller('NavCtrl', ['$scope', '$location', 'Auth', function($scope, $location, Auth){
+.controller('NavCtrl', ['$scope', '$rootScope','$location', 'Auth', function($scope, $rootScope, $location, Auth){
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
@@ -32,8 +32,16 @@ angular.module('phantomRunnerApp')
 
     $scope.register = function() {
         Auth.register({
-                username: $scope.username,
+                email: $scope.email,
                 password: $scope.password,
+                confirmPassword: $scope.confirmPassword,
+                firstName: $scope.firstName,
+                lastName: $scope.lastName,
+                state: $scope.state,
+                gender: $scope.gender,
+                birthday: $scope.birthday,
+                timezone: $scope.timezone,
+                runningShoes: $scope.runningShoes,
                 role: $scope.role
             },
             function() {
