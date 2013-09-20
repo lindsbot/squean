@@ -1,5 +1,82 @@
-<div>
+<div class="container" ng-controller="RegisterCtrl">
+  <form ng-submit="register()" name="registerForm">
+Email
+<input data-ng-model="email"></input>
+<br>
 
-This is the Login Template
+Password
+<input data-ng-model="password"></input>
+<br>
 
+
+Confirm Password
+<input data-ng-model="passwordConfirm"></input>
+<br>
+
+First Name
+<input data-ng-model="firstName"></input>
+<br>
+
+
+Last Name
+<input data-ng-model="lastName"></input>
+<br>
+
+<!-- should be dropdown -->
+State
+<input data-ng-model="state"></input>
+<br>
+
+<!-- should be dropdown -->
+Gender
+<input data-ng-model="gender"></input>
+<br>
+
+<!-- should be dropdown -->
+Birthday
+<input data-ng-model="birthday"></input>
+<br>
+
+<!-- should be dropdown -->
+Timezone
+<input data-ng-model="timezone"></input>
+<br>
+
+<!-- should be dropdown -->
+Running Shoes
+<input data-ng-model="runningShoes"></input>
+<br>
+
+<button>
+  Complete Registration
+</button>
+</form>
 </div>
+
+<br>
+<br>
+
+<div class="container" ng-controller="LoginCtrl">
+<form ng-submit="login()" name="loginForm">
+  Username
+  <input data-ng-model="username"></input>
+  <br>
+
+  Password
+  <input data-ng-model="password"></input>
+  <br>
+
+  <button>
+    login
+  </button>
+  </div>
+</form>
+<br>
+<br>
+
+<div class="container" ng-controller="NavCtrl">
+
+<button>
+  Click here to logout
+<button>
+  </div>

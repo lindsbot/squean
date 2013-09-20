@@ -4,11 +4,11 @@ angular.module('phantomRunnerApp', ['ngCookies'])
   .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
     // accessLevels: public, user, director, admin 
-    // var access = routesConfig.accessLevels;
+    var access = routesConfig.accessLevels;
 
     $routeProvider
       .when('/', {
-        templateUrl: './views/main.html',
+        templateUrl: './views/login.html',
         // access: access.public
       })
       .when('/login', {

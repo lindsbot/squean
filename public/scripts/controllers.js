@@ -10,7 +10,7 @@
 // }]);
 
 angular.module('phantomRunnerApp')
-.controller('NavCtrl', ['$scope', '$location', 'Auth', function($scope, $location, Auth){
+.controller('NavCtrl', ['$scope', '$rootScope','$location', 'Auth', function($scope, $rootScope, $location, Auth){
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
@@ -22,6 +22,35 @@ angular.module('phantomRunnerApp')
       $rootScope.error = "Failed to logout";
     });
   };
+}]);
+
+angular.module('phantomRunnerApp')
+.controller('RegisterCtrl',
+['$rootScope', '$scope', '$location', 'Auth', function($rootScope, $scope, $location, Auth) {
+    $scope.role = Auth.userRoles.user;
+    $scope.userRoles = Auth.userRoles;
+
+    $scope.register = function() {
+        Auth.register({
+                email: $scope.email,
+                password: $scope.password,
+                confirmPassword: $scope.confirmPassword,
+                firstName: $scope.firstName,
+                lastName: $scope.lastName,
+                state: $scope.state,
+                gender: $scope.gender,
+                birthday: $scope.birthday,
+                timezone: $scope.timezone,
+                runningShoes: $scope.runningShoes,
+                role: $scope.role
+            },
+            function() {
+                $location.path('/');
+            },
+            function(err) {
+                $rootScope.error = err;
+            });
+    };
 }]);
 
 angular.module('phantomRunnerApp')
@@ -38,6 +67,7 @@ angular.module('phantomRunnerApp')
         $location.path('/');
       },
       function(err) {
+        console.log("Error login :", err);
         $rootScope.error = "Failed to login";
       });
     };
@@ -49,7 +79,7 @@ angular.module('phantomRunnerApp')
 angular.module('phantomRunnerApp')
 .controller('Races', ['$scope', '$http', function ($scope, $http){
   $scope.getRaces = function(){
-    $http.get('/races').success(function(data, status){
+    $http.get('/racedata').success(function(data, status){
       console.log("got some races");
       $scope.races = data;
     })

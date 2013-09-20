@@ -8,14 +8,18 @@ var _ = require('underscore');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var RunkeeperStrategy = require('passport-runkeeper').Strategy;
 var check = require('validator').check;
 var userRoles = require('./../public/scripts/routesConfig.js').userRoles;
 var db = require('./db.js');
+var config = require('../config/env/development.json');
+//TODO: Change from dev to production @ deployment.
 
 module.exports = {
   addUser: function(credentials, role, callback){
-    console.log('/User.js --> credentials.email :',module.exports.findByEmail(credentials.email));
+    console.log('/User.js --> credentials :', credentials.email);
     if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
+
     var user = db.Users.build({
       email: credentials.email,
       encrypted_password: credentials.password || "test",
@@ -29,8 +33,10 @@ module.exports = {
     })
     .save()
     .success(function(data){
-      console.log("model/User.js THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
+
+      console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
       callback(data.email);
+
     })
     .error(function(error){
       console.log("model/User.js ERROR saving to DB :", error);
@@ -61,6 +67,7 @@ module.exports = {
 
   //Validator Docs: https://github.com/chriso/node-validator
   validate: function(requestBody){
+    console.log(requestBody, __dirname);
     check(requestBody.email, ' Email must be a valid email').len(6, 64).isEmail();
     check(requestBody.password, 'Password must be between 5-20 characters').len(5,20);
 
@@ -70,9 +77,9 @@ module.exports = {
 
 
   localStrategy: new LocalStrategy(
-    function(username, password, done) {
-      console.log('/models/User -- localStrategy :' + username);
-      db.Users.find({where: {email: username}})
+    function(email, password, done) {
+      console.log('/models/User -- localStrategy :' + email);
+      db.Users.find({where: {email: email}})
       .success(function(user){
       if(!user) {
         return done(null, false, {message: 'Unknown user: ' + user});
@@ -83,15 +90,30 @@ module.exports = {
     }
   ),
 
-  //TODO: review process.env and keys.
+
   facebookStrategy: function() {
-   // if(!process.env.FACEBOOK_APP_ID) { throw new Error('A Facebook App ID is required if you want to enable login via Facebook.');}
-    //if(!process.env.FACEBOOK_APP_SECRET) { throw new Error('A Facebook App Secret is required if you want to enable login via Facebook.');}
+    if(!config.facebook.clientID) { throw new Error('A Facebook App ID is required if you want to enable login via Facebook.');}
+    if(!config.facebook.clientSecret) { throw new Error('A Facebook App Secret is required if you want to enable login via Facebook.');}
 
     return new FacebookStrategy({
-        clientID: '155374731274112',
-        clientSecret: '3f5c06d69f381a14cde1851e3f8e9503',
-        callbackURL: process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3000/auth/facebook/callback"
+        clientID: config.facebook.clientID,
+        clientSecret: config.facebook.clientSecret,
+        callbackURL: config.facebook.callbackURL || 'http://localhost:3000/auth/facebook/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+        var user = module.exports.findOrCreateOauthUser(profile.provider, profile.id);
+        done(null, user);
+    });
+  },
+
+  runkeeperStrategy: function() {
+    if(!config.runkeeper.clientID) { throw new Error('A Runkeeper App ID is required if you want to enable login via Facebook.');}
+    if(!config.runkeeper.clientSecret) { throw new Error('A Runkeeper App Secret is required if you want to enable login via Facebook.');}
+
+    return new RunkeeperStrategy({
+        clientID: config.runkeeper.clientID,
+        clientSecret: config.runkeeper.clientSecret,
+        callbackURL: config.runkeeper.callbackURL || 'http://localhost:3000/auth/runkeeper/callback'
     },
     function(accessToken, refreshToken, profile, done) {
         var user = module.exports.findOrCreateOauthUser(profile.provider, profile.id);
@@ -102,7 +124,7 @@ module.exports = {
 
 
     serializeUser: function(user, done) {
-        done(null, user.id);
+        done(null, user);
     },
 
     deserializeUser: function(email, done) {
@@ -113,21 +135,6 @@ module.exports = {
     }
 
 };
-
-//    "clientID": "155374731274112",
-//         "clientSecret": "3f5c06d69f381a14cde1851e3f8e9503",
-//         "callbackURL": "http://localhost:3000/auth/facebook/callback"
-
-
-// process.env.FACEBOOK_APP_ID
-// process.env.FACEBOOK_APP_SECRET
-
-
-
-
-
-
-
 
 
 

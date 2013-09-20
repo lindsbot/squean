@@ -9,29 +9,22 @@ module.exports = {
         User.validate(req.body);
       }
       catch(err){
-        console.log(err, __dirname);
         return res.send(400, err.message);
       }
       //Ensure error strings are identical in User.js
-      User.addUser(req.body, req.body.role, function(err, user){
-        console.log("auth.js thinks this is the err: ", err);
-        console.log("auth.js thinks this is the user: ", user.dataValues.email);
+      User.addUser(req.body.username,req.body.password, req.body.role, function(err, user){
         if(err === 'UserAlreadyExists'){
           return res.send(403, 'User already Exists');}
 
         else if(err){
-          console.log(err, __dirname);
           return res.send(500);}
 
-
-
-        req.logIn(user.dataValues, function(err){
+        req.logIn(user, function(err){
           if(err){
-            next(err);
-          }
+            next(err);}
 
-        res.json(200, {'role': 'admin', 'email':user});
-
+          else {
+            res.json(200, {'role': user.role, 'email':user.email});}
         });
       });
     },
@@ -43,11 +36,16 @@ module.exports = {
       if(!user) {
         return res.send(400); }
 
-    if(req.body.rememberme) {
-      req.session.cookie.maxAge = 1000*60*60*24*7;
-    }
+      req.logIn(user, function(err){
+        if(err) {
+          return next(err);
+        }
 
-    return res.json(200, {'role': 'admin', 'username': user.email });
+        if(req.body.rememberme) {
+          req.session.cookie.maxAge = 1000*60*60*24*7;}
+
+        res.json(200, {'role': user.role, 'email': user.email });
+      });
     })(req, res, next);
   },
 
