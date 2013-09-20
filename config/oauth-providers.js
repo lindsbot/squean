@@ -1,5 +1,5 @@
-var OAught = require('oauth').OAuth;
-var oauth = new OAuth 
+var OAuth = require('oauth').OAuth;
+var oauth = new OAuth
 module.exports = {
     healthGraph: {
       appId: 'a31b59cfb9434e2d950942e07bc4d9ad',
