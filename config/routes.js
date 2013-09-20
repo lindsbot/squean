@@ -92,7 +92,7 @@ var routes = [
         'email' : email,
         'role': role
       }));
-      res.render('index');
+      res.redirect('/');
     }]
   }
 ];
