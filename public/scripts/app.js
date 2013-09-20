@@ -1,35 +1,42 @@
 'use strict';
 
-angular.module('phantomRunnerApp', [
-  // 'phantomRunnerApp.services',
-  // 'phantomRunnerApp.directives',
-  // 'phantomRunnerApp.filters',
-  // 'phantomRunnerApp.controllers'
-  ])
-  .config(['$routeProvider', function ($routeProvider) {
+angular.module('phantomRunnerApp', ['ngCookies'])
+  .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+
+    // accessLevels: public, user, director, admin 
+    // var access = routesConfig.accessLevels;
+
     $routeProvider
       .when('/', {
-        templateUrl: './views/main.html'
+        templateUrl: './views/main.html',
+        // access: access.public
       })
       .when('/login', {
-        templateUrl: './views/login.html'
+        templateUrl: './views/login.html',
+        // access: access.public
       })
       .when('/how', {
-        templateUrl: './views/how.html'
+        templateUrl: './views/how.html',
+        // access: access.public
       })
       .when('/admin', {
-        templateUrl: './views/admin.html'
+        templateUrl: './views/admin.html',
+        // access: access.admin
       })
       .when('/races', {
-        templateUrl: './views/races.html'
+        templateUrl: './views/races.html',
+        // access: access.public
       })
       .when('/faq', {
-        templateUrl: './views/faq.html'
+        templateUrl: './views/faq.html',
+        // access: access.public
       })
       .when('/contact', {
-        templateUrl: './views/contact.html'
+        templateUrl: './views/contact.html',
+        // access: access.public
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/',
+        // access: access.public
       });
   }]);

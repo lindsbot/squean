@@ -16,7 +16,8 @@
     "connect-ensure-login": "~0.1.1",
     "connect-flash": "~0.1.1",
     "underscore": "~1.5.2",
-    "validator": "~1.5.1"
+    "validator": "~1.5.1",
+    "jade": "~0.35.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -42,6 +43,7 @@
     "grunt-express-server": "~0.4.0"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.8.0",
+    "jade": "~0.35.0"
   }
 }

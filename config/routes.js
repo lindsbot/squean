@@ -1,118 +1,145 @@
 'use strict';
 
-var passport = require('passport');
-var Users = require('../models/db.js').Users;
-var Races = require('../models/db.js').Races;
-var ckeditor_assets = require('../models/db.js').ckeditor_assets;
-var request = require('request');
-var raceUsers = require('../models/db.js').Race_Users;
-var apis = require('./api.js');
-var ensureLoggedIn = require('connect-ensure-login');
+//Design pattern chosen from:
+//https://github.com/fnakstad/angular-client-side-auth/blob/master/server/routes.js
+
 var _ = require('underscore');
-var db = require('../models/db.js');
+var path = require('path');
+var passport = require('passport');
+var AuthCtrl = require('../controllers/auth.js');
+var UserCtrl = require('../controllers/user.js');
+var User     = require('../models/User.js');
+var userRoles = require('../public/scripts/routesConfig.js').userRoles;
+var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
+
+
+function ensureAuthorized(req,res,next) {
+  var role;
+  if(!req.user){ role = userRoles.public; }
+  else         { role = req.user.role; }
+
+  var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevels.public;
+
+  if(!(accessLevel.bitMask & role.bitMask)){ return res.send(403);}
+
+  return next();
+}
+
+var routes = [
+
+  //Views
+  {  //TODO: update according to front-end convention
+    path: '/views/*',
+    httpMethod: 'GET',
+    middleware: [function (req, res){
+      var requestedView = path.join('./',req.url);
+      res.render(requestedView);
+    }]
+
+  },
+
+  {
+    path: '/auth/facebook',
+    httpMethod: 'GET',
+    middleware: [passport.authenticate('facebook')]
+  },
+
+  {
+    path: '/auth/facebook/callback',
+    httpMethod: 'GET',
+    middleware: [passport.authenticate('facebook', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })]
+  },
+
+
+  //Local Authentication
+  {
+    path: '/register',
+    httpMethod: 'POST',
+    middleware: [AuthCtrl.register]
+  },
+  {
+    path: '/login',
+    httpMethod: 'POST',
+    middleware: [AuthCtrl.login]
+  },
+  {
+    path: '/logout',
+    httpMethod:'POST',
+    middleware: [AuthCtrl.logout]
+  },
+
+  //Allows admin to see all users, minus sensitive information
+  {
+    path:'/users',
+    httpMethod:'GET',
+    middleware: [UserCtrl.index],
+    accessLevel: accessLevels.admin
+  },
+
+  {
+    path: '/*',
+    httpMethod: 'GET',
+    middleware: [function(req,res) {
+      var role = userRoles.public, 
+         email = '';
+      if(req.user){
+        role = req.user.role;
+        email = req.user.email;
+      }
+      res.cookie('user', JSON.stringify({
+        'email' : email,
+        'role': role
+      }));
+      res.redirect('/');
+    }]
+  }
+];
 
 
 
 
-//////////// FROM PASSPORT.JS
+module.exports = function(app){
+  _.each(routes, function(route){
+    route.middleware.unshift(ensureAuthorized);
+    var args = _.flatten([route.path, route.middleware]);
 
+    switch(route.httpMethod.toUpperCase()) {
+      case 'GET':
+        app.get.apply(app, args);
+        break;
 
-var ensureAuthenticated = function(){
-  console.log("IN ensureAuthenticated !!!!!!!!!!!!");
-  return function(req, res, next){
-    if(req.isAuthenticated()){
-      console.log("req.isAuthenticated")
-      next();
+      case 'POST':
+        app.post.apply(app,args);
+        break;
+
+      case 'PUT':
+        app.put.apply(app,args);
+        break;
+      case 'DELETE':
+        app.put.apply(app,args);
+        break;
+      default:
+        throw new Error('Invalid HTTP method specified for route ' + route.path);
     }
-    res.status(401);
-    res.send("ensureAuthenticated is firing");
-  };
+  });
+
 };
 
 
-module.exports = function(app, passport){
-  // app.all('*', function(req,res,next){
-  //   if(req.isAuthenticated()){
-  //     return next();
-  //   }
-  //   return res.send(401, 'Unauthorized User');
-  // });
-
-  app.get('/', function(req, res){
-    res.status(200);
-    res.sendfile('./public/index.html');
-  });
-
-  app.get('/login', function(req, res){
-    res.status(200);
-    res.sendfile('./public/indexLogin.html');
-  });
-
-  app.get('/createUser', function(req, res){
-    res.status(200);
-    res.sendfile('./public/createUser.html');
-  });
 
 
 
 
 
-        // {successRedirect: '/',
-        // failureRedirect: '/loginFail'})
 
 
 
-  // app.get('/secret', pass.ensureAuthenticated(), function(req, res){
-  //     res.status(200);
-  //     res.sendfile('./public/index.html');
-  //   }
-  // );
-
-  app.get('/loginFail', function(req, res){
-    res.status(200);
-    res.send('/login');
-  });
-
-
-  app.get('/races', function(req, res, next){
-    Races.findAll().complete(function(err, results){
-      if(err) { return next(err); }
-      res.json(results);
-    });
-  });
-
-  app.get('/users', function(req, res, next){
-    Users.findAll().complete(function(err, results){
-      if(err) { return next(err); }
-      res.json(results);
-    });
-  });
-
-  app.get('/raceUsers', function(req, res, next){
-    raceUsers.findAll().complete(function(err, results){
-      if(err) { return next(err); }
-      res.json(results);
-    });
-  });
 
 
 
-  app.get('/ckeditor_assets', function(req, res, next){
-    ckeditor_assets.findAll().complete(function(err, results){
-      if(err) { return next(err); }
-      res.json(results);
-    });
-  });
 
-  app.get('/runkeeper', function(req, res, next){
-    request.get({
-      Host: 'api.runkeeper.com/user',
-      Authorization: 'Bearer 9838403873314fbfbb65be15cfc699f2',
-      Accept: 'application/vnd.com.runkeeper.FitnessActivityFeed+json'
-    }, function(err, _res, body){
-      if(err) { return next(err); }
-      console.log('Runkeeper response: ',res);
-      res.json(body);
-    });
-  });
-};
+
+

@@ -1,6 +1,8 @@
 'use strict';
 
-var User
+//var config = require('./config.json');
+
+
 
 var _ = require('underscore');
 var passport = require('passport');
@@ -12,8 +14,8 @@ var db = require('./db.js');
 
 module.exports = {
   addUser: function(credentials, role, callback){
-    if(this.findByEmail(credentials.email) !== undefined) { return callback("User Already Exists");}
-
+    console.log('/User.js --> credentials.email :',module.exports.findByEmail(credentials.email));
+    if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
     var user = db.Users.build({
       email: credentials.email,
       encrypted_password: credentials.password || "test",
@@ -23,13 +25,12 @@ module.exports = {
       gender: credentials.gender  || "test",
       birthday: credentials.birthday || new Date(),
       time_zone: credentials.time_zone || "test",
-      favorite_shoes: credentials.favorite_shoes || "testShoes"
+      favorite_shoe: credentials.favorite_shoes || "testShoes"
     })
     .save()
-    .success(function(task){
-      console.log("model/User.js -- user saved to db", credentials.email);
-      console.log("model/User.js -- What is this ? -->", task);
-      callback(null, this);
+    .success(function(data){
+      console.log("model/User.js THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
+      callback(data.email);
     })
     .error(function(error){
       console.log("model/User.js ERROR saving to DB :", error);
@@ -51,7 +52,11 @@ module.exports = {
 
 
   findByEmail: function(email){
-    return db.Users.find({where: {email: email}});
+    if(db.Users.find({where: {email: email}}) === email){
+      return true;
+    } else {
+      return false;
+    }
   },
 
   //Validator Docs: https://github.com/chriso/node-validator
@@ -76,15 +81,46 @@ module.exports = {
       done(null, user);
       });
     }
-  )
+  ),
 
+  //TODO: review process.env and keys.
+  facebookStrategy: function() {
+   // if(!process.env.FACEBOOK_APP_ID) { throw new Error('A Facebook App ID is required if you want to enable login via Facebook.');}
+    //if(!process.env.FACEBOOK_APP_SECRET) { throw new Error('A Facebook App Secret is required if you want to enable login via Facebook.');}
+
+    return new FacebookStrategy({
+        clientID: '155374731274112',
+        clientSecret: '3f5c06d69f381a14cde1851e3f8e9503',
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3000/auth/facebook/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        var user = module.exports.findOrCreateOauthUser(profile.provider, profile.id);
+        done(null, user);
+    });
+  },
+
+
+
+    serializeUser: function(user, done) {
+        done(null, user.id);
+    },
+
+    deserializeUser: function(email, done) {
+        var user = module.exports.findByEmail(email);
+
+        if(user)    { done(null, user); }
+        else        { done(null, false); }
+    }
 
 };
 
+//    "clientID": "155374731274112",
+//         "clientSecret": "3f5c06d69f381a14cde1851e3f8e9503",
+//         "callbackURL": "http://localhost:3000/auth/facebook/callback"
 
 
-
-
+// process.env.FACEBOOK_APP_ID
+// process.env.FACEBOOK_APP_SECRET
 
 
 
