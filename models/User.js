@@ -33,13 +33,10 @@ module.exports = {
     })
     .save()
     .success(function(data){
-<<<<<<< HEAD
-      console.log("model/User.js THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
-      callback(null, data);
-=======
+
       console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
       callback(data.email);
->>>>>>> backEnd2
+
     })
     .error(function(error){
       console.log("model/User.js ERROR saving to DB :", error);

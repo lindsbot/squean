@@ -79,7 +79,7 @@ angular.module('phantomRunnerApp')
 angular.module('phantomRunnerApp')
 .controller('Races', ['$scope', '$http', function ($scope, $http){
   $scope.getRaces = function(){
-    $http.get('/races').success(function(data, status){
+    $http.get('/racedata').success(function(data, status){
       console.log("got some races");
       $scope.races = data;
     })
