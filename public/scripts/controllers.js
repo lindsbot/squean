@@ -72,9 +72,9 @@ angular.module('phantomRunnerApp')
         $rootScope.error = "Failed to login";
       });
     };
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
+    // $scope.loginOauth = function(provider) {
+    //   $window.location.href = '/auth/' + provider;
+    // };
   }]);
 
 angular.module('phantomRunnerApp')

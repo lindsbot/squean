@@ -35,7 +35,14 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
     },
 
     login: function(user, success, error) {
-      $http.post('/login', user).success(function(user){
+      $http({
+        method: 'POST',
+        url: '/login',
+        data: user,
+         headers: {
+          'Content-Type': 'application/json'
+         }
+      }).success(function(user){
         changeUser(user);
         success(user);
       }).error(error);
