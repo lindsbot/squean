@@ -7,6 +7,8 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
 
   $cookieStore.remove('user');
 
+  // TODO: require underscore!!
+
   var changeUser = function(user) {
     _.extend(currentUser, user);
   };

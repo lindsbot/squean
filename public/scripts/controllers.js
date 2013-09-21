@@ -19,6 +19,7 @@ angular.module('phantomRunnerApp')
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
+  console.log("$scope.user inside NavCtrl: ", $scope.user);
 
   $scope.logout = function() {
     Auth.logout(function(){
@@ -87,7 +88,6 @@ angular.module('phantomRunnerApp')
 .controller('Races', ['$scope', '$http', function ($scope, $http){
   $scope.getRaces = function(){
     $http.get('/racedata').success(function(data, status){
-      console.log("got some races");
       $scope.races = data;
     })
     .error(function(err, status){
