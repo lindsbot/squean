@@ -59,7 +59,7 @@ angular.module('phantomRunnerApp')
     $scope.rememberme = true;
     $scope.login = function() {
       Auth.login({
-        email: $scope.email,
+        username: $scope.email,
         password: $scope.password,
         rememberme: $scope.rememberme
       },
