@@ -15,7 +15,7 @@ angular.module('phantomRunnerApp')
   $scope.isActive = function(viewLocation) {
     return viewLocation === $location.path();
   };
-  
+
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
@@ -38,7 +38,7 @@ angular.module('phantomRunnerApp')
 
     $scope.register = function() {
         Auth.register({
-                email: $scope.email,
+                username: $scope.email,
                 password: $scope.password,
                 confirmPassword: $scope.confirmPassword,
                 firstName: $scope.firstName,

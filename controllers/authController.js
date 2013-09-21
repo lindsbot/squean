@@ -20,11 +20,12 @@ module.exports = {
           return res.send(500);}
 
         req.logIn(user, function(err){
+          console.log("req.LogIn inside authController: ", user);
           if(err){
             next(err);}
 
           else {
-            res.json(200, {'role': user.role, 'email':user.email});}
+            res.json(200, {'role': user.role, 'username': user.email});}
         });
       });
     },
@@ -33,7 +34,7 @@ module.exports = {
           console.log("req: " + req.dataValues, "res: " + res);
 
     passport.authenticate('local', function(err, user){
-      console.log("this is the error:: ", err);
+      console.log("login error: ", err);
 
       if(err) {
         return next(err);
@@ -49,13 +50,14 @@ module.exports = {
         if(req.body.rememberme) {
           req.session.cookie.maxAge = 1000*60*60*24*7;
         }
-        return res.json(200, {'role': user.role, 'email': user.email });
+        return res.json(200, {'role': user.role, 'username': user.email });
       });
     })(req, res, next);
   },
 
     logout: function(req, res){
       req.logout();
+      // res.redirect('/');
       res.send(200);
     }
   };

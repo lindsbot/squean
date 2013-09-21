@@ -127,8 +127,11 @@ module.exports = {
         done(null, user);
     },
 
-    deserializeUser: function(email, done) {
-        var user = module.exports.findByEmail(email);
+    deserializeUser: function(user, done) {
+        console.log("DESERIALIZE !!!!!!",user.email);
+        var user = module.exports.findByEmail(user.email);
+        console.log("trying to call this function: ", module.exports.findByEmail);
+        console.log("this is the user : ", user);
 
         if(user)    { done(null, user); }
         else        { done(null, false); }
