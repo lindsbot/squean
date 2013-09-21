@@ -102,6 +102,20 @@ angular.module('phantomRunnerApp')
 }]);
 
 // angular.module('phantomRunnerApp')
+// .controller('AccordionCtrl', ['$scope', '$http', function ($scope, $http){
+//   $scope.getRaces = function(){
+//     $http.get('/racedata').success(function(data, status){
+//       $scope.races = data;
+//     })
+//     .error(function(err, status){
+//       console.log(status, err, "there was an error");
+//     });
+//   }
+//   $scope.getRaces();
+//   $scope.today = new Date();
+// }]);
+
+// angular.module('phantomRunnerApp')
 // .controller('')
 
 

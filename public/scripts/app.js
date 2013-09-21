@@ -2,10 +2,10 @@
 
 
   
-angular.module('phantomRunnerApp', ['ngCookies'])
+angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
   .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
-    // accessLevels: public, user, director, admin 
+    // accessLevels: public, user, race_manager, admin 
     var access = routesConfig.accessLevels;
 
     $routeProvider
