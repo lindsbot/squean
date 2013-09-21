@@ -20,6 +20,9 @@ angular.module('phantomRunnerApp')
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
   console.log("$scope.user inside NavCtrl: ", $scope.user);
+  if ($scope.user.length > 4){
+    console.log("hello");
+  }
 
   $scope.logout = function() {
     Auth.logout(function(){

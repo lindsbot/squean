@@ -16,12 +16,12 @@ var config = require('../config/env/development.json');
 //TODO: Change from dev to production @ deployment.
 
 module.exports = {
-  addUser: function(credentials, role, callback){
+  addUser: function(credentials, callback){
     console.log('/User.js --> credentials :', credentials);
-    if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
+    if(module.exports.findByEmail(credentials.username) !== false) { return callback('UserAlreadyExists');}
 
     var user = db.Users.build({
-      email: credentials.email,
+      email: credentials.username,
       encrypted_password: credentials.password || "test",
       first_name: credentials.first_name  || "test",
       last_name: credentials.last_name  || "test",
@@ -35,6 +35,7 @@ module.exports = {
     .success(function(data){
 
       console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
+      console.log('these are the user roles from user.js: ', userRoles);
       callback(null, data);
 
     })
@@ -68,7 +69,7 @@ module.exports = {
   //Validator Docs: https://github.com/chriso/node-validator
   validate: function(requestBody){
     console.log("inside User model", requestBody);
-    check(requestBody.email, ' Email must be a valid email').len(6, 64).isEmail();
+    check(requestBody.username, ' Email must be a valid email').len(6, 64).isEmail();
     check(requestBody.password, 'Password must be between 5-20 characters').len(5,20);
 
     var stringArr = _.map(_.values(userRoles), function(val){ return val.toString() });
@@ -78,14 +79,14 @@ module.exports = {
 
   localStrategy: new LocalStrategy(
     function(email, password, done) {
-      console.log('/models/User -- localStrategy :' + email);
+      console.log('/models/User -- localStrategy :', email);
       db.Users.find({where: {email: email}})
       .success(function(user){
       if(!user) {
-        return done(null, false, {message: 'Unknown user: ' + user});
+        return done(null, false, {message: 'Unknown user: ' + user.dataValues});
       }
-      console.log('USERS EMAIL: ' + user.email);
-      done(null, user);
+      console.log('USER IN User.js LocalStrategy: ', user.dataValues);
+      done(null, user.dataValues);
       });
     }
   ),
