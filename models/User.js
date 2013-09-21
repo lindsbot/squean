@@ -17,7 +17,7 @@ var config = require('../config/env/development.json');
 
 module.exports = {
   addUser: function(credentials, role, callback){
-    console.log('/User.js --> credentials :', credentials.email);
+    console.log('/User.js --> credentials :', credentials);
     if(module.exports.findByEmail(credentials.email) !== false) { return callback('UserAlreadyExists');}
 
     var user = db.Users.build({
@@ -35,7 +35,7 @@ module.exports = {
     .success(function(data){
 
       console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
-      callback(data.email);
+      callback(null, data);
 
     })
     .error(function(error){
@@ -67,7 +67,7 @@ module.exports = {
 
   //Validator Docs: https://github.com/chriso/node-validator
   validate: function(requestBody){
-    console.log(requestBody, __dirname);
+    console.log("inside User model", requestBody);
     check(requestBody.email, ' Email must be a valid email').len(6, 64).isEmail();
     check(requestBody.password, 'Password must be between 5-20 characters').len(5,20);
 
