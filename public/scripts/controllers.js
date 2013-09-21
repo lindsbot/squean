@@ -11,6 +11,11 @@
 
 angular.module('phantomRunnerApp')
 .controller('NavCtrl', ['$scope', '$rootScope','$location', 'Auth', function($scope, $rootScope, $location, Auth){
+
+  $scope.isActive = function(viewLocation) {
+    return viewLocation === $location.path();
+  };
+  
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
@@ -22,6 +27,7 @@ angular.module('phantomRunnerApp')
       $rootScope.error = "Failed to logout";
     });
   };
+
 }]);
 
 angular.module('phantomRunnerApp')
