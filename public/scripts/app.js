@@ -23,7 +23,7 @@ angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
       })
       .when('/admin', {
         templateUrl: './views/admin.html',
-        access: access.admin
+        access: access.race_manager
       })
       .when('/races', {
         templateUrl: './views/races.html',
@@ -41,4 +41,14 @@ angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
         redirectTo: '/',
         access: access.public
       });
-  }]);
+  }])
+    .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            $rootScope.error = null;
+            if (!Auth.authorize(next.access)) {
+              $location.path('/');
+            }
+        });
+
+    }]);

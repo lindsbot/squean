@@ -16,6 +16,7 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
   return {
     // authorization functions
     authorize: function(accessLevel, role) {
+      console.log("role from authorize function: ", role)
       if (role === undefined) {
         role = currentUser.role;
       }
