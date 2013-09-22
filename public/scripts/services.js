@@ -16,11 +16,12 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
   return {
     // authorization functions
     authorize: function(accessLevel, role) {
-      console.log("role from authorize function: ", role)
+      console.log("accessLevel from authorize function: ", accessLevel);
       if (role === undefined) {
         role = currentUser.role;
       }
-      return accessLevels.bitMask & role.bitMask;
+            console.log("return value from authorize function: ", accessLevel.bitMask & role.bitMask)
+      return accessLevel.bitMask & role.bitMask;
     },
 
     isLoggedIn: function(user) {
