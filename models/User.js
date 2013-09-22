@@ -13,6 +13,7 @@ var check = require('validator').check;
 var userRoles = require('./../public/scripts/routesConfig.js').userRoles;
 var db = require('./db.js');
 var config = require('../config/env/development.json');
+var bcrypt = require('bcrypt');
 //TODO: Change from dev to production @ deployment.
 
 module.exports = {
@@ -20,29 +21,34 @@ module.exports = {
     console.log('/User.js --> credentials :', credentials);
     if(module.exports.findByEmail(credentials.username) !== false) { return callback('UserAlreadyExists');}
 
-    var user = db.Users.build({
-      email: credentials.username,
-      encrypted_password: credentials.password || "test",
-      first_name: credentials.first_name  || "test",
-      last_name: credentials.last_name  || "test",
-      state: credentials.state  || "test",
-      gender: credentials.gender  || "test",
-      birthday: credentials.birthday || new Date(),
-      time_zone: credentials.time_zone || "test",
-      favorite_shoe: credentials.favorite_shoes || "testShoes"
-    })
-    .save()
-    .success(function(data){
+    
+    bcrypt.genSalt(10, function(err, salt){
+      bcrypt.hash(credentials.password, salt, function(err, hash){
 
-      console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
-      console.log('these are the user roles from user.js: ', userRoles);
-      callback(null, data);
+        var user = db.Users.build({
+          email: credentials.username,
+          encrypted_password: hash,
+          first_name: credentials.first_name  || "test",
+          last_name: credentials.last_name  || "test",
+          state: credentials.state  || "test",
+          gender: credentials.gender  || "test",
+          birthday: credentials.birthday || new Date(),
+          time_zone: credentials.time_zone || "test",
+          favorite_shoe: credentials.favorite_shoes || "testShoes"
+        })
+        .save()
+        .success(function(data){
 
-    })
-    .error(function(error){
-      console.log("model/User.js ERROR saving to DB :", error);
+          console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
+          console.log('these are the user roles from user.js: ', userRoles);
+          callback(null, data);
+
+        })
+        .error(function(error){
+          console.log("model/User.js ERROR saving to DB :", error);
+        });
+      });
     });
-
 
   },
 
@@ -129,7 +135,6 @@ module.exports = {
     },
 
     deserializeUser: function(user, done) {
-        console.log("DESERIALIZE !!!!!!",user.email);
         var user = module.exports.findByEmail(user.email);
         console.log("trying to call this function: ", module.exports.findByEmail);
         console.log("this is the user : ", user);
