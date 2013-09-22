@@ -7,14 +7,14 @@
     roles: [
       'public',
       'user',
-      'director',
+      'race_manager',
       'admin'
     ],
 
     accessLevels: {
       'public': '*',
       'user' : ['public'],
-      'director' : ['user', 'public'],
+      'race_manager' : ['user', 'public'],
       'admin' : ['admin']
     }
   };

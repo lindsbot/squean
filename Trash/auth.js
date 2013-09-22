@@ -30,7 +30,7 @@ module.exports = {
             next(err);
           }
 
-        res.json(200, {'role': 'admin', 'email':user});
+        res.json(200, {'role': 'admin', 'email': user.email});
 
         });
       });
@@ -38,6 +38,7 @@ module.exports = {
 
   login: function(req, res, next){
     passport.authenticate('local', function(err, user){
+      console.log("Inside auth.js/login--- " + "req: " + req, "res: " + res, "user: " + user);
       if(err) {
         return next(err); }
       if(!user) {
@@ -47,7 +48,7 @@ module.exports = {
       req.session.cookie.maxAge = 1000*60*60*24*7;
     }
 
-    return res.json(200, {'role': 'admin', 'username': user.email });
+    return res.json(200, {'role': 'admin', 'email': user.email });
     })(req, res, next);
   },
 

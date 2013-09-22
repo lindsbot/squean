@@ -11,9 +11,18 @@
 
 angular.module('phantomRunnerApp')
 .controller('NavCtrl', ['$scope', '$rootScope','$location', 'Auth', function($scope, $rootScope, $location, Auth){
+
+  $scope.isActive = function(viewLocation) {
+    return viewLocation === $location.path();
+  };
+
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
+  console.log("$scope.user inside NavCtrl: ", $scope.user);
+  if ($scope.user.length > 4){
+    console.log("hello");
+  }
 
   $scope.logout = function() {
     Auth.logout(function(){
@@ -22,6 +31,7 @@ angular.module('phantomRunnerApp')
       $rootScope.error = "Failed to logout";
     });
   };
+
 }]);
 
 angular.module('phantomRunnerApp')
@@ -32,7 +42,7 @@ angular.module('phantomRunnerApp')
 
     $scope.register = function() {
         Auth.register({
-                email: $scope.email,
+                username: $scope.email,
                 password: $scope.password,
                 confirmPassword: $scope.confirmPassword,
                 firstName: $scope.firstName,
@@ -59,11 +69,12 @@ angular.module('phantomRunnerApp')
     $scope.rememberme = true;
     $scope.login = function() {
       Auth.login({
-        username: $scope.username,
+        username: $scope.email,
         password: $scope.password,
         rememberme: $scope.rememberme
       },
       function(res) {
+        console.log(res);
         $location.path('/');
       },
       function(err) {
@@ -71,16 +82,15 @@ angular.module('phantomRunnerApp')
         $rootScope.error = "Failed to login";
       });
     };
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
+    // $scope.loginOauth = function(provider) {
+    //   $window.location.href = '/auth/' + provider;
+    // };
   }]);
 
 angular.module('phantomRunnerApp')
 .controller('Races', ['$scope', '$http', function ($scope, $http){
   $scope.getRaces = function(){
     $http.get('/racedata').success(function(data, status){
-      console.log("got some races");
       $scope.races = data;
     })
     .error(function(err, status){
@@ -90,6 +100,20 @@ angular.module('phantomRunnerApp')
   $scope.getRaces();
   $scope.today = new Date();
 }]);
+
+// angular.module('phantomRunnerApp')
+// .controller('AccordionCtrl', ['$scope', '$http', function ($scope, $http){
+//   $scope.getRaces = function(){
+//     $http.get('/racedata').success(function(data, status){
+//       $scope.races = data;
+//     })
+//     .error(function(err, status){
+//       console.log(status, err, "there was an error");
+//     });
+//   }
+//   $scope.getRaces();
+//   $scope.today = new Date();
+// }]);
 
 // angular.module('phantomRunnerApp')
 // .controller('')

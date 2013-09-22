@@ -7,6 +7,8 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
 
   $cookieStore.remove('user');
 
+  // TODO: require underscore!!
+
   var changeUser = function(user) {
     _.extend(currentUser, user);
   };
@@ -14,10 +16,12 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
   return {
     // authorization functions
     authorize: function(accessLevel, role) {
+      console.log("accessLevel from authorize function: ", accessLevel);
       if (role === undefined) {
         role = currentUser.role;
       }
-      return accessLevels.bitMask & role.bitMask;
+            console.log("return value from authorize function: ", accessLevel.bitMask & role.bitMask)
+      return accessLevel.bitMask & role.bitMask;
     },
 
     isLoggedIn: function(user) {
@@ -35,7 +39,14 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
     },
 
     login: function(user, success, error) {
-      $http.post('/login', user).success(function(user){
+      $http({
+        method: 'POST',
+        url: '/login',
+        data: user,
+         headers: {
+          'Content-Type': 'application/json'
+         }
+      }).success(function(user){
         changeUser(user);
         success(user);
       }).error(error);

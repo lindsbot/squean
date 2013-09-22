@@ -19,6 +19,8 @@ function ensureAuthorized(req,res,next) {
   if(!req.user){ role = userRoles.public; }
   else         { role = req.user.role; }
 
+  console.log("this is the role in ensureAuthorized: ", role);
+
   var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevels.public;
 
   if(!(accessLevel.bitMask & role.bitMask)){ return res.send(403);}
@@ -105,13 +107,13 @@ var routes = [
     httpMethod: 'GET',
     middleware: [function(req,res) {
       var role = userRoles.public, 
-         email = '';
+         username = '';
       if(req.user){
         role = req.user.role;
-        email = req.user.email;
+        username = req.user.email;
       }
       res.cookie('user', JSON.stringify({
-        'email' : email,
+        'username' : username,
         'role': role
       }));
       res.redirect('/');

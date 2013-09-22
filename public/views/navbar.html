@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top" data-ng-controller="NavCtrl">
+<div class="navbar navbar-fixed-top" ng-controller="NavCtrl">
   <div class="navbar-inner">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -11,7 +11,7 @@
       </a>
       <div id="account-links" class="pull-right">
         <a class="btn btn-dropdown-toggle">
-          {{username}} text
+          {{user.username}}
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
@@ -28,9 +28,9 @@
         </ul>
       </div>
     <ul class="nav nav-pills">
-      <li><a href="/" active-link="active">Home</a></li>
-      <li class="dropdown">
-        <a href="#/races" active-link="active">Races</a>
+      <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+      <li class="dropdown" ng-class="{ active: isActive('/races')}">
+        <a href="#/races">Races</a>
         <ul class="dropdown-menu">
           <li><a href="#/races" >Upcoming Races</a></li>
           <li><a href="#/races/past-races">Past Races</a></li>
@@ -38,9 +38,9 @@
           <li><a href="#/races/my-races">My Races</a></li>
         </ul>
       </li>
-      <li><a href="#/how" active-link="active">How It Works</a></li>
-      <li><a href="#/faq" active-link="active">FAQ</a></li>
-      <li><a href="#/contact" active-link="active">Contact Us</a></li>
+      <li ng-class="{ active: isActive('/how')}"><a href="#/how">How It Works</a></li>
+      <li ng-class="{ active: isActive('/faq')}"><a href="#/faq">FAQ</a></li>
+      <li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact Us</a></li>
     </ul>
   </div>
 </div>
