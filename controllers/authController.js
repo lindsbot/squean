@@ -3,6 +3,7 @@
 var passport = require('passport');
 var User = require('../models/User.js');
 var userRoles = require('./../public/scripts/routesConfig.js').userRoles;
+var bcrypt = require('bcrypt');
 
 module.exports = {
   register: function(req, res, next){
@@ -25,7 +26,8 @@ module.exports = {
 
         req.logIn(user, function(err){
           if(err){
-            next(err);}
+            next(err);
+          }
 
           else {
             var role;
@@ -39,7 +41,7 @@ module.exports = {
     },
 
   login: function(req, res, next){
-          console.log("req: " + req.dataValues, "res: " + res);
+          console.log("req: ", req.body);
 
     passport.authenticate('local', function(err, user){
       var role;
@@ -54,15 +56,23 @@ module.exports = {
       if(!user) {
         return res.send(400);
       }
-      req.logIn(user, function(err){
-        if(err) {
-          return next(err);
-        }
 
-        if(req.body.rememberme) {
-          req.session.cookie.maxAge = 1000*60*60*24*7;
+      bcrypt.compare(req.body.password, user.encrypted_password, function(err, response){
+        if (response) {
+          req.logIn(user, function(err){
+            if(err) {
+              return next(err);
+            }
+
+            if(req.body.rememberme) {
+              req.session.cookie.maxAge = 1000*60*60*24*7;
+            }
+            return res.json(200, {'role': role, 'username': user.email });
+          });
         }
-        return res.json(200, {'role': role, 'username': user.email });
+        else {
+          console.log("bcrypt failure in authController");
+        }
       });
     })(req, res, next);
   },

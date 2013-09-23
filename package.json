@@ -17,7 +17,8 @@
     "connect-flash": "~0.1.1",
     "underscore": "~1.5.2",
     "validator": "~1.5.1",
-    "jade": "~0.35.0"
+    "jade": "~0.35.0",
+    "bcrypt": "~0.7.7"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
