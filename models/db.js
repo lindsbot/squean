@@ -165,5 +165,6 @@ module.exports = {
     Users: Users,
     Races: Races,
     Race_Users: Race_Users,
-    ckeditor_assets: ckeditor_assets
+    ckeditor_assets: ckeditor_assets,
+    identities:identities
 };
