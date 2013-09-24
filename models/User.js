@@ -19,37 +19,43 @@ var bcrypt = require('bcrypt');
 module.exports = {
   addUser: function(credentials, callback){
     console.log('/User.js --> credentials :', credentials);
-    if(module.exports.findByEmail(credentials.username) !== false) { return callback('UserAlreadyExists');}
+    // if(module.exports.findByEmail(credentials.username) !== false) { return callback('UserAlreadyExists');}
+    db.Users.find({where: {email: credentials.username}}).success(function(user){
+      if (user) {
+        return callback('UserAlreadyExists');
+      }
+      else {
+        bcrypt.genSalt(10, function(err, salt){
+          bcrypt.hash(credentials.password, salt, function(err, hash){
 
-    
-    bcrypt.genSalt(10, function(err, salt){
-      bcrypt.hash(credentials.password, salt, function(err, hash){
+            var user = db.Users.build({
+              email: credentials.username,
+              encrypted_password: hash,
+              first_name: credentials.first_name  || "test",
+              last_name: credentials.last_name  || "test",
+              state: credentials.state  || "test",
+              gender: credentials.gender  || "test",
+              birthday: credentials.birthday || new Date(),
+              time_zone: credentials.time_zone || "test",
+              favorite_shoe: credentials.favorite_shoes || "testShoes"
+            })
+            .save()
+            .success(function(data){
 
-        var user = db.Users.build({
-          email: credentials.username,
-          encrypted_password: hash,
-          first_name: credentials.first_name  || "test",
-          last_name: credentials.last_name  || "test",
-          state: credentials.state  || "test",
-          gender: credentials.gender  || "test",
-          birthday: credentials.birthday || new Date(),
-          time_zone: credentials.time_zone || "test",
-          favorite_shoe: credentials.favorite_shoes || "testShoes"
-        })
-        .save()
-        .success(function(data){
+              console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
+              callback(null, data);
 
-          console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
-          console.log('these are the user roles from user.js: ', userRoles);
-          callback(null, data);
-
-        })
-        .error(function(error){
-          console.log("model/User.js ERROR saving to DB :", error);
+            })
+            .error(function(error){
+              console.log("model/User.js ERROR saving to DB :", error);
+            });
+          });
         });
-      });
+      }
+    }).error(function(err){
+      console.log("there was an error: ", err);
+      throw "There was an error";
     });
-
   },
 
 
@@ -65,7 +71,7 @@ module.exports = {
 
 
   findByEmail: function(email){
-    if(db.Users.find({where: {email: email}}) === email){
+    if(db.Users.find({where: {email: email}}) === email) {
       return true;
     } else {
       return false;
@@ -85,7 +91,6 @@ module.exports = {
 
   localStrategy: new LocalStrategy(
     function(email, password, done) {
-      console.log('/models/User -- localStrategy :', email);
       db.Users.find({where: {email: email}})
       .success(function(user){
       if(!user) {
@@ -135,12 +140,17 @@ module.exports = {
     },
 
     deserializeUser: function(user, done) {
-        var user = module.exports.findByEmail(user.email);
-        console.log("trying to call this function: ", module.exports.findByEmail);
-        console.log("this is the user : ", user);
 
-        if(user)    { done(null, user); }
-        else        { done(null, false); }
+        db.Users.find({where: {email: user.username}}).success(function(dbResult){
+          if (dbResult) {
+            done(null, user);
+          }
+          else {
+            done(null, false);
+          }
+        }).error(function(err){
+          throw "there was an error deserializing the user";
+        });
     }
 
 };
