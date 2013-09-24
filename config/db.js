@@ -15,8 +15,8 @@ var Users = sequelize.define('Users',{
   last_sign_in_at: {type: Sequelize.DATE, defaultValue: null},
   current_sign_in_ip: {type: Sequelize.STRING, defaultValue: null},
   last_sign_in_ip: {type: Sequelize.STRING, defaultValue: null},
-  created_at: {type: Sequelize.DATE, allowNull: false},
-  updated_at: {type: Sequelize.DATE, allowNull: false},
+  // created_at: {type: Sequelize.DATE, allowNull: false},
+  // updated_at: {type: Sequelize.DATE, allowNull: false},
   admin: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: 0},
   first_name: {type: Sequelize.STRING, allowNull: false},
   last_name: {type: Sequelize.STRING, allowNull: false},
@@ -34,6 +34,23 @@ var Users = sequelize.define('Users',{
   confirmation_sent_at: {type: Sequelize.DATE, defaultValue: null},
   unconfirmed_email: {type: Sequelize.STRING, defaultValue: null},
   referral_credit: {type: Sequelize.DECIMAL(10,2), defaultValue: '0.00'}
+}, {
+  getterMethods: {
+    createdAt: function() {
+      return this.getDataValue('created_at');
+    },
+    updatedAt: function() {
+      return this.getDataValue('updated_at');
+    }
+  },
+  setterMethods: {
+    createdAt: function(t) {
+      return this.setDataValue('created_at',t);
+    },
+    updatedAt: function(t) {
+      return this.setDataValue('updated_at',t);
+    }
+  }
 });
 
 var Races = sequelize.define('Races',{
