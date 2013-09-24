@@ -27,7 +27,7 @@ app.use(passport.session());
 // Use passport stratgies; OAuths must be invoked '()'
 passport.use(User.localStrategy);
 passport.use(User.facebookStrategy());
-//passport.use(User.runkeeperStrategy());
+passport.use(User.runkeeperStrategy());
 
 passport.serializeUser(User.serializeUser);
 passport.deserializeUser(User.deserializeUser);
