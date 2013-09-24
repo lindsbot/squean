@@ -128,7 +128,10 @@ module.exports = {
         callbackURL: config.runkeeper.callbackURL || 'http://localhost:3000/auth/runkeeper/callback'
     },
     function(accessToken, refreshToken, profile, done) {
-        var user = module.exports.findOrCreateOauthUser(profile.provider, profile.id);
+      db..find({where {email: user.email}})
+
+
+
         done(null, user);
     });
   },
