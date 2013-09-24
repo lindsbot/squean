@@ -48,6 +48,7 @@ module.exports = {
       if (user.admin){ role = userRoles.admin }
       else if (user.race_manager){ role = userRoles.race_manager } 
       else { role = userRoles.user }
+      console.log('role in login: ', role);
 
       if(err) {
         console.log("login error: ", err);
@@ -80,7 +81,7 @@ module.exports = {
     logout: function(req, res){
       req.logout();
       // res.redirect('/');
-      res.send(200);
+      res.json(200, {'role': userRoles.public, 'username': ''});
     }
   };
 
