@@ -151,6 +151,14 @@ var ckeditor_assets = sequelize.define('ckeditor_assets',{
   created_at: { type: Sequelize.DATE, allowNull: false },
   updated_at: { type: Sequelize.DATE, allowNull: false },
 
+});
+
+var identities = sequelize.define('identities', {
+  id: { type: Sequelize.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true},
+  uid: { type: Sequelize.STRING, defaultValue: null},
+  provider: { type: Sequelize.STRING, defaultValue: null},
+  user_id: { type: Sequelize.INTEGER, defaultValue: null},
+  token: { type: Sequelize.STRING, defaultValue: null}
 })
 
 module.exports = {
