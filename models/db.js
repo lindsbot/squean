@@ -1,6 +1,7 @@
 'use strict';
 
 var Sequelize = require('sequelize');
+// TODO: set up simple MySQL db and link to it here
 var sequelize = new Sequelize('phantomrunner', 'root');
 
 var Users = sequelize.define('Users',{
