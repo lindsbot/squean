@@ -4,18 +4,16 @@
 
   var config = {
 
-    roles: [
-      'public',
-      'user',
-      'race_manager',
-      'admin'
-    ],
+  roles :[
+          'public',
+          'user',
+          'admin'],
 
-    accessLevels: {
-      'public': '*',
-      'user' : ['public'],
-      'race_manager' : ['user', 'public'],
-      'admin' : ['admin']
+    accessLevels : {
+        'public' : "*",
+        'anon': ['public'],
+        'user' : ['user', 'admin'],
+        'admin': ['admin']
     }
   };
 

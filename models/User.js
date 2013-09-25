@@ -13,12 +13,9 @@ var userRoles = require('./../public/scripts/routesConfig.js').userRoles;
 var db = require('./db.js');
 var config = require('../config/env/development.json');
 var bcrypt = require('bcrypt');
-//TODO: Change from dev to production @ deployment.
 
 module.exports = {
   addUser: function(credentials, callback){
-    console.log('/User.js --> credentials :', credentials);
-    // if(module.exports.findByEmail(credentials.username) !== false) { return callback('UserAlreadyExists');}
     db.Users.find({where: {email: credentials.username}}).success(function(user){
       if (user) {
         return callback('UserAlreadyExists');
@@ -29,24 +26,14 @@ module.exports = {
 
             var user = db.Users.build({
               email: credentials.username,
-              encrypted_password: hash,
-              first_name: credentials.first_name  || "test",
-              last_name: credentials.last_name  || "test",
-              state: credentials.state  || "test",
-              gender: credentials.gender  || "test",
-              birthday: credentials.birthday || new Date(),
-              time_zone: credentials.time_zone || "test",
-              favorite_shoe: credentials.favorite_shoes || "testShoes"
+              encrypted_password: hash
             })
             .save()
             .success(function(data){
-
-              console.log(__dirname, "THIS USER WAS SUCCESSFULLY INSERTED :", data.email);
               callback(null, data);
-
             })
             .error(function(error){
-              console.log("model/User.js ERROR saving to DB :", error);
+              console.log("models/User.js error saving to DB :", error);
             });
           });
         });

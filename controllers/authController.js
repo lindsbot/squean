@@ -32,9 +32,7 @@ module.exports = {
           else {
             var role;
             if (user.admin){ role = userRoles.admin }
-            else if (user.race_manager){ role = userRoles.race_manager } 
             else { role = userRoles.user }
-            // TODO: change 'user.role' (undefined) below to be a valid role 
             res.json(200, {'role': role, 'username': user.email});}
         });
       });
