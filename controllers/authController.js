@@ -17,7 +17,6 @@ module.exports = {
       }
       //Ensure error strings are identical in User.js
       User.addUser(req.body, function(err, user){
-        console.log('in authController, req.body.role == ', req.body.role);
         if(err === 'UserAlreadyExists'){
           return res.send(403, 'User already Exists');}
 
@@ -44,7 +43,6 @@ module.exports = {
     passport.authenticate('local', function(err, user){
       var role;
       if (user.admin){ role = userRoles.admin }
-      else if (user.race_manager){ role = userRoles.race_manager } 
       else { role = userRoles.user }
       console.log('role in login: ', role);
 
@@ -71,6 +69,7 @@ module.exports = {
         }
         else {
           console.log("bcrypt failure in authController");
+          return res.json(401, {});
         }
       });
     })(req, res, next);
@@ -78,7 +77,6 @@ module.exports = {
 
     logout: function(req, res){
       req.logout();
-      // res.redirect('/');
       res.json(200, {'role': userRoles.public, 'username': ''});
     }
   };
