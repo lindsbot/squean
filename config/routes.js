@@ -54,6 +54,14 @@ var routes = [
 
 
   //Local Authentication
+
+  {
+    path: '/register',
+    httpMethod: 'GET',
+    middleware: [function (req,res){
+      res.sendfile('./public/login.html');
+    }]
+  },
   {
     path: '/register',
     httpMethod: 'POST',

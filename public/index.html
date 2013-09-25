@@ -25,7 +25,32 @@
 </head>
 
 <body>
-  <ng:include src="'./views/navbar.html'"></ng:include>
+  <div class="navbar navbar-fixed-top" ng-controller="NavCtrl">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a href="/" class="brand">
+        <img alt="Your Company Logo" src="assets/logo.png">
+      </a>
+
+    <ul class="nav nav-pills">
+      <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+
+      <li ng-class="{ active: isActive('/how')}"><a href="#/how">How It Works</a></li>
+      <li ng-class="{ active: isActive('/faq')}"><a href="#/faq">FAQ</a></li>
+      <li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact Us</a></li>
+
+      <li> <a href="/register" id="sign-in" rel="nofollow">Sign In/Sign Up</a> </li>
+
+      <li> <a href="#/users/sign_out" data-method="DELETE" id="sign-out" rel="nofollow">Sign Out</a> </li>
+    </ul>
+  </div>
+</div>
+</div>
 
   <div class="main" ng-view></div>
 

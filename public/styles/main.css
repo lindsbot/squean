@@ -29,6 +29,10 @@ ul {
     margin-top: 100px;
 }
 
+ .index-hero h1 {
+    text-align: center;
+}
+
 .hero-img {
     width: 100%;
 }
