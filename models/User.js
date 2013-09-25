@@ -38,9 +38,9 @@ module.exports = {
           });
         });
       }
-    }).error(function(err){
-      console.log("there was an error: ", err);
-      throw "There was an error";
+    })
+    .error(function(err){
+      throw err;
     });
   },
 
@@ -48,20 +48,36 @@ module.exports = {
 
 
   findAll: function(){
-    return db.Users.findAll();
+    db.Users.findAll().success(function(users){
+      return users;
+    })
+    .error(function(err){
+      throw err;
+    });
   },
 
   findById: function(id){
-    return db.Users.find({where: {id: id}});
+    db.Users.find({where: {id: id}}).success(function(user){
+      return user;
+    })
+    .error(function(err){
+      throw err;
+    });
   },
 
 
   findByEmail: function(email){
-    if(db.Users.find({where: {email: email}}) === email) {
-      return true;
-    } else {
-      return false;
-    }
+    db.Users.find({where: {email: email}}).success(function(user){
+      if (user) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    })
+    .error(function(err){
+      throw err;
+    });
   },
 
   //Validator Docs: https://github.com/chriso/node-validator
@@ -82,7 +98,6 @@ module.exports = {
       if(!user) {
         return done(null, false, {message: 'Unknown user: ' + user.dataValues});
       }
-      console.log('USER IN User.js LocalStrategy: ', user.dataValues);
       done(null, user.dataValues);
       });
     }
@@ -109,7 +124,6 @@ module.exports = {
   },
 
   deserializeUser: function(user, done) {
-
       db.Users.find({where: {email: user.username}}).success(function(dbResult){
         if (dbResult) {
           done(null, user);
@@ -118,7 +132,7 @@ module.exports = {
           done(null, false);
         }
       }).error(function(err){
-        throw "there was an error deserializing the user";
+        throw err;
       });
   }
 
