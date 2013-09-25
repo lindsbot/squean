@@ -26,7 +26,7 @@ angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
         access: access.race_manager
       })
       .when('/races', {
-        templateUrl: './views/races.html',
+        templateUrl: './views/things.html',
         access: access.public
       })
       .when('/faq', {

@@ -1,0 +1,24 @@
+<div ng-controller="Things">
+<br />
+
+HERE ARE SOME THINGS
+<br />
+<br />
+<br />
+
+<ul>
+<!-- Check out NG News Letter for a quick tutorial http://www.ng-newsletter.com/posts/beginner2expert-how_to_start.html -->
+
+<li ng-repeat="thing in things"> 
+  <div class="thingBox span4">
+<!--     The next line is commented out to avoid infinite loop, uncomment when 'Things' is a valid object. -->
+<!--       {{ thing.name }} <br /> {{ thing.created_at }} -->
+
+  </div>
+
+</li>
+
+
+</ul>
+
+</div>
