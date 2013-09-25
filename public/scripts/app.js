@@ -10,7 +10,7 @@ angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
 
     $routeProvider
       .when('/', {
-        templateUrl: './views/login.html',
+        templateUrl: './views/main.html',
         access: access.public
       })
       .when('/login', {
@@ -23,11 +23,7 @@ angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
       })
       .when('/admin', {
         templateUrl: './views/admin.html',
-        access: access.race_manager
-      })
-      .when('/races', {
-        templateUrl: './views/things.html',
-        access: access.public
+        access: access.admin
       })
       .when('/faq', {
         templateUrl: './views/faq.html',
