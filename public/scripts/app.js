@@ -46,7 +46,7 @@ angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.error = null;
-            if (!Auth.authorize(next.access)) {
+            if (!Auth.authorize(next.access, Auth.currentUser.role)) {
               $location.path('/');
             }
         });

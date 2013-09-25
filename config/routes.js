@@ -8,7 +8,6 @@ var path = require('path');
 var passport = require('passport');
 var AuthCtrl = require('../controllers/authController.js');
 var UserCtrl = require('../controllers/userController.js');
-var RaceCtrl = require('../controllers/racesController.js');
 var User     = require('../models/User.js');
 var userRoles = require('../public/scripts/routesConfig.js').userRoles;
 var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
@@ -54,21 +53,6 @@ var routes = [
     })]
   },
 
-  {
-    path: '/auth/runkeeper',
-    httpMethod: 'GET',
-    middleware: [passport.authenticate('runkeeper')]
-  },
-
-  {
-    path: '/auth/runkeeper/callback',
-    httpMethod: 'GET',
-    middleware: [passport.authenticate('runkeeper', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    })]
-  },
-
 
   //Local Authentication
   {
@@ -93,11 +77,6 @@ var routes = [
     httpMethod:'GET',
     middleware: [UserCtrl.index],
     accessLevel: accessLevels.admin
-  },
-  {
-    path:'/racedata',
-    httpMethod:'GET',
-    middleware: [RaceCtrl.index]
   },
 
   {

@@ -8,7 +8,6 @@ var _ = require('underscore');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var RunkeeperStrategy = require('passport-runkeeper').Strategy;
 var check = require('validator').check;
 var userRoles = require('./../public/scripts/routesConfig.js').userRoles;
 var db = require('./db.js');
@@ -118,43 +117,23 @@ module.exports = {
     });
   },
 
-  runkeeperStrategy: function() {
-    if(!config.runkeeper.clientID) { throw new Error('A Runkeeper App ID is required if you want to enable login via Facebook.');}
-    if(!config.runkeeper.clientSecret) { throw new Error('A Runkeeper App Secret is required if you want to enable login via Facebook.');}
-
-    return new RunkeeperStrategy({
-        clientID: config.runkeeper.clientID,
-        clientSecret: config.runkeeper.clientSecret,
-        callbackURL: config.runkeeper.callbackURL || 'http://localhost:3000/auth/runkeeper/callback'
-    },
-    function(accessToken, refreshToken, profile, done) {
-      //Look up db.identities.find({where {email: user.email}})
-
-
-
-        done(null, user);
-    });
+  serializeUser: function(user, done) {
+      done(null, user);
   },
 
+  deserializeUser: function(user, done) {
 
-
-    serializeUser: function(user, done) {
-        done(null, user);
-    },
-
-    deserializeUser: function(user, done) {
-
-        db.Users.find({where: {email: user.username}}).success(function(dbResult){
-          if (dbResult) {
-            done(null, user);
-          }
-          else {
-            done(null, false);
-          }
-        }).error(function(err){
-          throw "there was an error deserializing the user";
-        });
-    }
+      db.Users.find({where: {email: user.username}}).success(function(dbResult){
+        if (dbResult) {
+          done(null, user);
+        }
+        else {
+          done(null, false);
+        }
+      }).error(function(err){
+        throw "there was an error deserializing the user";
+      });
+  }
 
 };
 
