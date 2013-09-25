@@ -7,12 +7,10 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
   register: function(req, res, next){
-    console.log('userRoles in authController: ', userRoles);
       try{
         User.validate(req.body);
       }
       catch(err){
-        console.log("error in authController: ", err);
         return res.send(400, err.message);
       }
       //Ensure error strings are identical in User.js
@@ -38,16 +36,12 @@ module.exports = {
     },
 
   login: function(req, res, next){
-          console.log("req: ", req.body);
-
     passport.authenticate('local', function(err, user){
       var role;
       if (user.admin){ role = userRoles.admin }
       else { role = userRoles.user }
-      console.log('role in login: ', role);
 
       if(err) {
-        console.log("login error: ", err);
         return next(err);
       }
       if(!user) {
@@ -68,7 +62,6 @@ module.exports = {
           });
         }
         else {
-          console.log("bcrypt failure in authController");
           return res.json(401, {});
         }
       });
