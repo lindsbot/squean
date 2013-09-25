@@ -75,10 +75,21 @@ module.exports = {
     })(req, res, next);
   },
 
-    logout: function(req, res){
-      req.logout();
-      res.json(200, {'role': userRoles.public, 'username': ''});
-    }
+  logout: function(req, res){
+    req.logout();
+    res.json(200, {'role': userRoles.public, 'username': ''});
+  },
+
+  index: function(req,res){
+    var users = User.findAll();
+    _.each(users, function(user){
+      delete user.password;
+      delete user.facebook;
+    });
+
+    res.json(users);
+  }
+
   };
 
 

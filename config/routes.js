@@ -7,7 +7,6 @@ var _ = require('underscore');
 var path = require('path');
 var passport = require('passport');
 var AuthCtrl = require('../controllers/authController.js');
-var UserCtrl = require('../controllers/userController.js');
 var User     = require('../models/User.js');
 var userRoles = require('../public/scripts/routesConfig.js').userRoles;
 var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
@@ -71,11 +70,11 @@ var routes = [
     middleware: [AuthCtrl.logout]
   },
 
-  //Allows admin to see all users, minus sensitive information
+  //Allow admin to see all users, minus sensitive information
   {
     path:'/users',
     httpMethod:'GET',
-    middleware: [UserCtrl.index],
+    middleware: [AuthCtrl.index],
     accessLevel: accessLevels.admin
   },
 
