@@ -26,7 +26,7 @@ module.exports = {
 
             var user = db.Users.build({
               email: credentials.username,
-              encrypted_password: hash
+              encryptedPassword: hash
             })
             .save()
             .success(function(data){

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $cookieStore){
+angular.module('yourAppHere').factory('Auth', function($http, $rootScope, $cookieStore){
   var accessLevels = routesConfig.accessLevels;
   var userRoles = routesConfig.userRoles;
   var currentUser = $cookieStore.get('user') || {username: '', role: userRoles.public};
@@ -69,7 +69,7 @@ angular.module('phantomRunnerApp').factory('Auth', function($http, $rootScope, $
   };
 });
 
-angular.module('phantomRunnerApp').factory('Users', function($http) {
+angular.module('yourAppHere').factory('Users', function($http) {
   return {
     getAll: function(success, error) {
       $http.get('/users').success(success).error(error);

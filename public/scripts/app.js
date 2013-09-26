@@ -1,11 +1,10 @@
 'use strict';
 
 
-  
-angular.module('phantomRunnerApp', ['ngCookies', 'ui.bootstrap'])
+angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
   .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
-    // accessLevels: public, user, race_manager, admin 
+    // accessLevels: public, user, race_manager, admin
     var access = routesConfig.accessLevels;
 
     $routeProvider

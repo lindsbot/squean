@@ -7,7 +7,9 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
   register: function(req, res, next){
+    console.log('register authCtrl');
       try{
+        console.log("req.boy inside register function: ", req.body);
         User.validate(req.body);
       }
       catch(err){
@@ -30,7 +32,8 @@ module.exports = {
             var role;
             if (user.admin){ role = userRoles.admin }
             else { role = userRoles.user }
-            res.json(200, {'role': role, 'username': user.email});}
+            res.json(200, {'role': role, 'username': user.email, 'redirect': '/cow'});
+          }
         });
       });
     },

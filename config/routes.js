@@ -57,13 +57,6 @@ var routes = [
 
   {
     path: '/register',
-    httpMethod: 'GET',
-    middleware: [function (req,res){
-      res.sendfile('./public/login.html');
-    }]
-  },
-  {
-    path: '/register',
     httpMethod: 'POST',
     middleware: [AuthCtrl.register]
   },
@@ -85,12 +78,18 @@ var routes = [
     middleware: [AuthCtrl.index],
     accessLevel: accessLevels.admin
   },
+  {
+    path:'/users',
+    httpMethod:'GET',
+    middleware: [AuthCtrl.index],
+    accessLevel: accessLevels.admin
+  },
 
   {
     path: '/*',
     httpMethod: 'GET',
     middleware: [function(req,res) {
-      var role = userRoles.public, 
+      var role = userRoles.public,
          username = '';
       if(req.user){
         role = req.user.role;

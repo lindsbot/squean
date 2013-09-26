@@ -11,10 +11,12 @@ var app = express();
 // Get configuration from environment variables
 app.set('port', process.env.PORT || 3000);
 
+app.use(express.static(__dirname + '/public/login/'));
+
 // Setup everything else
 require('./config/environments.js')(app);
 
-app.use(express.static(__dirname + '../../public'));
+
 app.use(express.logger('dev'));
 app.use(express.cookieParser());
 app.use(express.bodyParser());

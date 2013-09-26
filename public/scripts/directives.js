@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('phantomRunnerApp')
+angular.module('yourAppHere')
   .directive('accessLevel', ['Auth', function(Auth){
     return {
       restrict: 'A',

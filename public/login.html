@@ -1,3 +1,6 @@
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
 <!-- <div class="container" ng-controller="RegisterCtrl"> -->
   <form ng-submit="register()" name="registerForm">
@@ -32,14 +35,19 @@
 <br>
 <br>
 
+
+
+
 <div class="container" ng-controller="LoginCtrl">
+
+  <h2>Login</h2>
   <form ng-submit="login()" name="loginForm">
     Username
-    <input data-ng-model="email"></input>
+    <input type="text" name="email"></input>
     <br>
 
     Password
-    <input data-ng-model="password"></input>
+    <input type="password" name="password"></input>
     <br>
     <label class="checkbox">
       <input type="checkbox" data-ng-model="rememberme"> Remember Me
@@ -61,6 +69,6 @@
       Click here to logout
     <button>
 </div>
-
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
 
 </body>
