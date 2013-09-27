@@ -51,7 +51,7 @@ module.exports = {
         return res.send(400);
       }
 
-      bcrypt.compare(req.body.password, user.encrypted_password, function(err, response){
+      bcrypt.compare(req.body.password, user.encryptedPassword, function(err, response){
         if (response) {
           req.logIn(user, function(err){
             if(err) {
@@ -61,7 +61,7 @@ module.exports = {
             if(req.body.rememberme) {
               req.session.cookie.maxAge = 1000*60*60*24*7;
             }
-            return res.json(200, {'role': role, 'username': user.email });
+            return res.json(200, {'role': role, 'username': user.email});
           });
         }
         else {

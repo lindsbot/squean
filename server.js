@@ -11,7 +11,7 @@ var app = express();
 // Get configuration from environment variables
 app.set('port', process.env.PORT || 3000);
 
-app.use(express.static(__dirname + '/public/login/'));
+app.use(express.static(__dirname + '/public'));
 
 // Setup everything else
 require('./config/environments.js')(app);

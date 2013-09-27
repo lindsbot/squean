@@ -10,7 +10,7 @@ angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
     $routeProvider
       .when('/', {
         templateUrl: './views/main.html',
-        access: access.public
+        access: access.user
       })
       .when('/login', {
         templateUrl: './views/login.html',
@@ -41,8 +41,14 @@ angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             $rootScope.error = null;
-            if (!Auth.authorize(next.access, Auth.currentUser.role)) {
-              $location.path('/');
+            if (!Auth.authorize(next.access)) {
+              if (Auth.isLoggedIn(Auth.user)) {
+                $location.path('/');
+              }
+              else {
+                $location.path('/login');
+              }
+
             }
         });
 

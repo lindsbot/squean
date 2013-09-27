@@ -50,11 +50,10 @@ $(document).ready(function(){
       contentType:'application/json',
       data: userData,
       success: function(data){
-        window.location = data.redirect;
-        console.log("success!");
+        console.log(data);
       },
       error: function(err){
-        console.log("ERROR :",err);
+        throw err;
       }
     });
   });

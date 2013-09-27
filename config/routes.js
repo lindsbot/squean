@@ -89,6 +89,9 @@ var routes = [
     path: '/*',
     httpMethod: 'GET',
     middleware: [function(req,res) {
+        // if (!req.isAuthenticated()){
+        //   res.redirect('./../public/login');
+        // }
       var role = userRoles.public,
          username = '';
       if(req.user){
