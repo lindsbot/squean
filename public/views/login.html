@@ -1,7 +1,7 @@
 <div class="container" ng-controller="RegisterCtrl">
   <form ng-submit="register()" name="registerForm">
     Email
-    <input data-ng-model="email"></input>
+    <input type="text" data-ng-model="email"></input>
     <br>
 
     Password
@@ -13,7 +13,7 @@
     <input type = "password" data-ng-model="passwordConfirm"></input>
     <br>
 
-    <button>
+    <button class="btn">
       Complete Registration
     </button>
   </form>
@@ -25,7 +25,7 @@
 <div class="container" ng-controller="LoginCtrl">
   <form ng-submit="login()" name="loginForm">
     Username
-    <input data-ng-model="email"></input>
+    <input type="text" data-ng-model="email"></input>
     <br>
 
     Password
@@ -36,7 +36,7 @@
     </label>
     <br>
 
-    <button>
+    <button class="btn">
       login
     </button>
   </form>
@@ -46,7 +46,7 @@
 
 <div class="container" ng-controller="NavCtrl">
 
-    <button ng-click="logout()" name="logoutButton">
+    <button class="btn" ng-click="logout()" name="logoutButton">
       Click here to logout
-    <button>
+    </button>
 </div>

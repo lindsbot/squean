@@ -44,14 +44,6 @@ angular.module('yourAppHere')
         Auth.register({
                 username: $scope.email,
                 password: $scope.password,
-                confirmPassword: $scope.confirmPassword,
-                firstName: $scope.firstName,
-                lastName: $scope.lastName,
-                state: $scope.state,
-                gender: $scope.gender,
-                birthday: $scope.birthday,
-                timezone: $scope.timezone,
-                runningShoes: $scope.runningShoes,
                 role: $scope.role
             },
             function() {
