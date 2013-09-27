@@ -7,8 +7,6 @@ angular.module('yourAppHere').factory('Auth', function($http, $rootScope, $cooki
 
   $cookieStore.remove('user');
 
-  // TODO: require underscore!!
-
   var changeUser = function(user) {
     _.extend(currentUser, user);
   };
