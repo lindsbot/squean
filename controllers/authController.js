@@ -32,7 +32,7 @@ module.exports = {
             var role;
             if (user.admin){ role = userRoles.admin }
             else { role = userRoles.user }
-            res.json(200, {'role': role, 'username': user.email, 'redirect': '/cow'});
+            res.json(200, {'role': role, 'username': user.email, 'redirect': '/'});
           }
         });
       });

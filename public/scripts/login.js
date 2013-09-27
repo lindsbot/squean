@@ -36,5 +36,28 @@ $(document).ready(function(){
 
   });
 
+  $("#loginForm").on('submit', function(e){
+    e.preventDefault();
+
+    var pass = $('#loginPassword').val();
+    var email = $('#loginEmail').val();
+
+    var userData = JSON.stringify({username: email, password: pass, role: userRoles.public});
+
+    $.ajax({
+      type:'POST',
+      url:'/login',
+      contentType:'application/json',
+      data: userData,
+      success: function(data){
+        window.location = data.redirect;
+        console.log("success!");
+      },
+      error: function(err){
+        console.log("ERROR :",err);
+      }
+    });
+  });
+
 
 });
