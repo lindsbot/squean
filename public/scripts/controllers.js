@@ -19,7 +19,6 @@ angular.module('yourAppHere')
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
   $scope.accessLevels = Auth.accessLevels;
-  console.log("$scope.user inside NavCtrl: ", $scope.user);
   if ($scope.user.length > 4){
     console.log("hello");
   }
