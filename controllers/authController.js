@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('underscore');
 var passport = require('passport');
 var User = require('../models/User.js');
 var userRoles = require('./../public/scripts/routesConfig.js').userRoles;
@@ -9,7 +10,7 @@ module.exports = {
   register: function(req, res, next){
     console.log('register authCtrl');
       try{
-        console.log("req.boy inside register function: ", req.body);
+        console.log('req.boy inside register function: ', req.body);
         User.validate(req.body);
       }
       catch(err){
@@ -30,8 +31,8 @@ module.exports = {
 
           else {
             var role;
-            if (user.admin){ role = userRoles.admin }
-            else { role = userRoles.user }
+            if (user.admin){ role = userRoles.admin; }
+            else { role = userRoles.user; }
             res.json(200, {'role': role, 'username': user.email, 'redirect': '/'});
           }
         });
@@ -41,8 +42,8 @@ module.exports = {
   login: function(req, res, next){
     passport.authenticate('local', function(err, user){
       var role;
-      if (user.admin){ role = userRoles.admin }
-      else { role = userRoles.user }
+      if (user.admin){ role = userRoles.admin; }
+      else { role = userRoles.user; }
 
       if(err) {
         return next(err);
@@ -77,16 +78,17 @@ module.exports = {
   },
 
   index: function(req,res){
-    var users = User.findAll();
-    _.each(users, function(user){
-      delete user.password;
-      delete user.facebook;
+    User.findAll().success(function(results){
+      _.each(results, function(user){
+        delete user.password;
+      });
+      res.json(results);
+    }).error(function(err){
+      throw err;
     });
-
-    res.json(users);
   }
 
-  };
+};
 
 
 

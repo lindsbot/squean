@@ -18,7 +18,7 @@ angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
       })
       .when('/how', {
         templateUrl: './views/how.html',
-        access: access.public
+        access: access.user
       })
       .when('/admin', {
         templateUrl: './views/admin.html',
@@ -26,15 +26,15 @@ angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
       })
       .when('/faq', {
         templateUrl: './views/faq.html',
-        access: access.public
+        access: access.user
       })
       .when('/contact', {
         templateUrl: './views/contact.html',
-        access: access.public
+        access: access.user
       })
       .otherwise({
         redirectTo: '/',
-        access: access.public
+        access: access.user
       });
   }])
     .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {

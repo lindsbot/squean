@@ -23,6 +23,7 @@
 <br>
 
 <div class="container" ng-controller="LoginCtrl">
+    <div class="alert" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</div>
   <form ng-submit="login()" name="loginForm">
     Username
     <input type="text" data-ng-model="email"></input>
@@ -32,7 +33,7 @@
     <input type = "password" data-ng-model="password"></input>
     <br>
     <label class="checkbox">
-      <input type="checkbox" data-ng-model="rememberme"> Remember Me
+      <input type="checkbox" data-ng-model="rememberme"> Remember Me </input>
     </label>
     <br>
 
@@ -40,6 +41,7 @@
       login
     </button>
   </form>
+</div>
 
 <br>
 <br>

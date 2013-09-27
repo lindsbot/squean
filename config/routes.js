@@ -78,12 +78,6 @@ var routes = [
     middleware: [AuthCtrl.index],
     accessLevel: accessLevels.admin
   },
-  {
-    path:'/users',
-    httpMethod:'GET',
-    middleware: [AuthCtrl.index],
-    accessLevel: accessLevels.admin
-  },
 
   {
     path: '/*',

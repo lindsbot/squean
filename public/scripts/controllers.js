@@ -59,6 +59,7 @@ angular.module('yourAppHere')
 .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$window', 'Auth',
   function($rootScope, $scope, $location, $window, Auth){
     $scope.rememberme = true;
+    $scope.alerts = [];
     $scope.login = function() {
       Auth.login({
         username: $scope.email,
@@ -69,42 +70,10 @@ angular.module('yourAppHere')
         console.log(res);
         $location.path('/');
       },
-      function(err) {
-        console.log('Error login : ', err);
+      function() {
+        $scope.alerts.push({ type: 'error', msg: 'Invalid username/password combination' });
         $rootScope.error = 'Failed to login';
       });
     };
-    // $scope.loginOauth = function(provider) {
-    //   $window.location.href = '/auth/' + provider;
-    // };
+
   }]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
