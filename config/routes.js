@@ -13,11 +13,13 @@ var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
 
 
 function ensureAuthorized(req,res,next) {
+              console.log("in ensureAuthorized");
   var role;
   if(!req.user){ role = userRoles.public; }
   else         { role = req.user.role; }
 
   var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevels.public;
+  console.log("ensureAuthorized");
 
   if(!(accessLevel.bitMask & role.bitMask)){ return res.send(403);}
 
@@ -25,9 +27,8 @@ function ensureAuthorized(req,res,next) {
 }
 
 var routes = [
-
   //Views
-  {  //TODO: update according to front-end convention
+  {
     path: '/views/*',
     httpMethod: 'GET',
     middleware: [function (req, res){
@@ -78,14 +79,13 @@ var routes = [
     middleware: [AuthCtrl.index],
     accessLevel: accessLevels.admin
   },
-
   {
     path: '/*',
     httpMethod: 'GET',
     middleware: [function(req,res) {
-        // if (!req.isAuthenticated()){
-        //   res.redirect('./../public/login');
-        // }
+        if (!req.isAuthenticated()){
+          res.redirect('/login');
+        }
       var role = userRoles.public,
          username = '';
       if(req.user){
@@ -122,10 +122,11 @@ module.exports = function(app){
         app.put.apply(app,args);
         break;
       case 'DELETE':
-        app.put.apply(app,args);
+        app.delete.apply(app,args);
         break;
       default:
         throw new Error('Invalid HTTP method specified for route ' + route.path);
+        break;
     }
   });
 

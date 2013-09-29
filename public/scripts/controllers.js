@@ -34,6 +34,12 @@ angular.module('yourAppHere')
 }]);
 
 angular.module('yourAppHere')
+.controller('HomeCtrl',
+['$rootScope', function($rootScope) {
+
+}]);
+
+angular.module('yourAppHere')
 .controller('RegisterCtrl',
 ['$rootScope', '$scope', '$location', 'Auth', function($rootScope, $scope, $location, Auth) {
     $scope.role = Auth.userRoles.user;

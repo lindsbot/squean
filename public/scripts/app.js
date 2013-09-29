@@ -36,12 +36,35 @@ angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
         redirectTo: '/',
         access: access.user
       });
-  }])
-    .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
 
+      var interceptor = ['$location', '$q', function($location, $q) {
+              function success(response) {
+                  return response;
+              }
+
+              function error(response) {
+
+                  if(response.status === 401) {
+                      $location.path('/login');
+                      return $q.reject(response);
+                  }
+                  else {
+                      return $q.reject(response);
+                  }
+              }
+
+              return function(promise) {
+                  return promise.then(success, error);
+              };
+          }];
+
+          $httpProvider.responseInterceptors.push(interceptor);
+  }])
+    .run(['$rootScope', '$location', 'Auth', '$cookieStore', function ($rootScope, $location, Auth, $cookieStore) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
+          console.log("$cookieStore.get('user') in run function: ", $cookieStore.get('user'));
             $rootScope.error = null;
-            if (!Auth.authorize(next.access)) {
+            if (!Auth.authorize(next.access, Auth.user.role)) {
               if (Auth.isLoggedIn(Auth.user)) {
                 $location.path('/');
               }

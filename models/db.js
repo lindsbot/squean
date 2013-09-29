@@ -8,7 +8,8 @@ var Users = sequelize.define('Users',{
   email: {type: Sequelize.STRING, allowNull: false, defaultValue: ''},
   encryptedPassword: {type: Sequelize.STRING, allowNull: false, defaultValue: ''},
   createdAt: {type: Sequelize.DATE, allowNull: false, defaultValue: ''},
-  updatedAt: {type: Sequelize.DATE, allowNull: false, defaultValue: ''}
+  updatedAt: {type: Sequelize.DATE, allowNull: false, defaultValue: ''},
+  role: {type: Sequelize.STRING, allowNull: false, defaultValue: 'user'}
 
 });
 

@@ -98,7 +98,7 @@ module.exports = {
       if(!user) {
         return done(null, false, {message: 'Unknown user: ' + user.dataValues});
       }
-      done(null, user.dataValues);
+      done(null, user);
       });
     }
   ),

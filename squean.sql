@@ -6,6 +6,7 @@ CREATE TABLE `users` (
   `encryptedPassword` varchar(255) NOT NULL DEFAULT '',
   `createdAt` TIMESTAMP NOT NULL,
   `updatedAt` TIMESTAMP NOT NULL,
-
+  `role` varchar(255) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`)
+  
 ) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=latin1;

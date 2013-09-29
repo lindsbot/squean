@@ -8,9 +8,7 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
   register: function(req, res, next){
-    console.log('register authCtrl');
       try{
-        console.log('req.boy inside register function: ', req.body);
         User.validate(req.body);
       }
       catch(err){
@@ -41,9 +39,11 @@ module.exports = {
 
   login: function(req, res, next){
     passport.authenticate('local', function(err, user){
-      var role;
-      if (user.admin){ role = userRoles.admin; }
-      else { role = userRoles.user; }
+      req.session.user = userRoles[user.dataValues.role];
+      console.log("req.session.user", req.session.user);
+
+      // add additional role logic here
+      var role = userRoles[user.role];
 
       if(err) {
         return next(err);
