@@ -14,7 +14,6 @@ var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
 
 function ensureAuthorized(req,res,next) {
   var role;
-  console.log("req in ensureAuthorized ", req);
   if(!req.user){ role = userRoles.public; }
   else         { role = req.user.role; }
 

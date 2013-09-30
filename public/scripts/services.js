@@ -3,7 +3,13 @@
 angular.module('yourAppHere').factory('Auth', function($http, $rootScope, $cookieStore){
   var accessLevels = routesConfig.accessLevels;
   var userRoles = routesConfig.userRoles;
-  var currentUser = $cookieStore.get('user') || {username: '', role: userRoles.public};
+  var currentUser; 
+  if (typeof $cookieStore.get('user') !== 'undefined') {
+    currentUser = $cookieStore.get('user');
+  }
+  else {
+    currentUser = {username: '', role: userRoles.public};
+  }
 
   $cookieStore.remove('user');
 

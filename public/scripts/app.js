@@ -62,7 +62,6 @@ angular.module('yourAppHere', ['ngCookies', 'ui.bootstrap'])
   }])
     .run(['$rootScope', '$location', 'Auth', '$cookieStore', function ($rootScope, $location, Auth, $cookieStore) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-          console.log("$cookieStore.get('user') in run function: ", $cookieStore.get('user'));
             $rootScope.error = null;
             if (!Auth.authorize(next.access, Auth.user.role)) {
               if (Auth.isLoggedIn(Auth.user)) {
