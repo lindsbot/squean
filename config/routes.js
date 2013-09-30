@@ -13,13 +13,12 @@ var accessLevels = require('../public/scripts/routesConfig.js').accessLevels;
 
 
 function ensureAuthorized(req,res,next) {
-              console.log("in ensureAuthorized");
   var role;
+  console.log("req in ensureAuthorized ", req);
   if(!req.user){ role = userRoles.public; }
   else         { role = req.user.role; }
 
   var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevels.public;
-  console.log("ensureAuthorized");
 
   if(!(accessLevel.bitMask & role.bitMask)){ return res.send(403);}
 
@@ -88,9 +87,9 @@ var routes = [
         }
       var role = userRoles.public,
          username = '';
-      if(req.user){
-        role = req.user.role;
-        username = req.user.email;
+      if(req.cookies && req.cookies.user){
+        role = req.cookies.user.role;
+        username = req.cookies.user.username;
       }
       res.cookie('user', JSON.stringify({
         'username' : username,

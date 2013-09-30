@@ -29,9 +29,9 @@ passport.deserializeUser(User.deserializeUser);
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(req, res){
-  console.log("I'm in the server.js!!");
-});
+// app.get('/', function(req, res){
+//   console.log("I'm in the server.js!!");
+// });
 
 require('./config/routes')(app, passport);
 app.use(app.router);
