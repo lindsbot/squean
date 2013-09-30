@@ -81,7 +81,9 @@ var routes = [
     path: '/*',
     httpMethod: 'GET',
     middleware: [function(req,res) {
+
         if (!req.isAuthenticated()){
+          console.log("IN CATCHALL ROUTE & NOT AUTHENTICATED");
           res.redirect('/login');
         }
       var role = userRoles.public,
@@ -109,6 +111,7 @@ module.exports = function(app){
 
     switch(route.httpMethod.toUpperCase()) {
       case 'GET':
+        console.log("IN THE GET!!")
         app.get.apply(app, args);
         break;
 

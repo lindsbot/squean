@@ -9,6 +9,7 @@ angular.module('yourAppHere').factory('Auth', function($http, $rootScope, $cooki
   }
   else {
     currentUser = {username: '', role: userRoles.public};
+    console.log("currentUser in Auth service: ", currentUser);
   }
 
   $cookieStore.remove('user');
@@ -23,6 +24,8 @@ angular.module('yourAppHere').factory('Auth', function($http, $rootScope, $cooki
       if (role === undefined) {
         role = currentUser.role;
       }
+      console.log("accessLevel: ", accessLevel);
+      console.log("role: ", role);
       return accessLevel.bitMask & role.bitMask;
     },
 
