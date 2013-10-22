@@ -1,4 +1,4 @@
-Squean is an open-source stack for kickstarting a project using Sequelize, Express, Angular, and Node. It bridges the gap between a MEAN stack and the need to use a SQL database. Squean provides a skeleton app with an Angular front-end, as well as Passport authentication system on the server.
+Squean is an open-source stack for kickstarting a project using Sequelize, Express, Angular, and Node. It bridges the gap between a MEAN stack and the need to use a SQL database. Squean provides a skeleton app with an Angular front-end, as well as a Passport authentication system on the server.
 
 
 
