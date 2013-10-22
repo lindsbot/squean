@@ -1,18 +1,6 @@
-SQUEAN is boilerplate code to jumpstart your app in Sequelize.js, Express.js, Angular.js, and Node.js
+Squean is an open-source stack for kickstarting a project using Sequelize, Express, Angular, and Node. It bridges the gap between a MEAN stack and the need to use a SQL database. Squean provides a skeleton app with an Angular front-end, as well as Passport authentication system on the server.
 
-Download and install the following:
-Node.js -- http://www.nodejs.org/download/
-MySQL -- http://dev.mysql.com/downloads/
 
-npm install to get these packages:
-Express -- npm module in package.json
-Sequelize -- npm module in package.json
-Passport -- npm module in package.json
-
-bower install for these:
-Angular -- bower module in bower.json
-Bootstrap -- bower module in bower.json
-UI Bootstrap -- bower module in bower.json
 
 License
 (The MIT License)
